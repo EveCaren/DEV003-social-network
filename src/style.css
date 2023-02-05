@@ -1,0 +1,59 @@
+body{
+    background-color: #f2f2f2;
+}
+#root{
+    display: block;
+    
+}
+.containerLogin{
+    background-color: #d9d9d9;
+}
+.logoDiv > img{
+    height: 112px;
+    width: 112px;
+}
+.logoDiv{
+    justify-content: center;
+}
+.title{
+    font-size: 35px;
+    color:#bf522a;
+    font-family: 'Itim', cursive;
+    
+}
+.inputs{
+    border-radius: 0.5rem;
+    width: 15rem;
+    height: 1.7rem;
+    border: 2px solid #bf522a;
+}
+
+.labels{
+    font-size: 1rem;
+    font-family:Inter;
+    color: #122e40;
+}
+
+.buttonLogin{
+    border-radius: 0.5rem;
+    background-color: #f2a71b;
+    font-size: 1rem;
+    color:#122e40;   
+    width: 10rem;
+    height: 2rem; 
+}
+
+.buttonRegister{
+    border-radius: 0.5rem;
+    background-color: #fdfffd;
+    font-size: 1rem ;
+    color:#122e40;
+    width: 8.8rem;
+    height: 2rem;
+}
+p{
+    font-size: 1rem;
+    color:#122e40;
+    text-align: center;
+    font-family: Inter;
+}
