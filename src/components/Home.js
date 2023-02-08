@@ -1,6 +1,6 @@
-import { onNavigate } from '../main.js';
+// import { onNavigate } from '../main.js';
 
-export const home = () => {
+export const home = (on) => {
   const HomeDiv = document.createElement('div');
   HomeDiv.setAttribute('class', 'HomeDiv');
   const logoDiv = document.createElement('div');
@@ -33,17 +33,18 @@ export const home = () => {
   const inputPass = document.createElement('input');
   inputPass.setAttribute('type', 'text');
   inputPass.setAttribute('class', 'inputs');
+  // Botones
   const buttonLogin = document.createElement('button');
   buttonLogin.setAttribute('class', 'buttonLogin');
+  buttonLogin.textContent = 'Inicia Sesión';
   const buttonRegister = document.createElement('button');
   buttonRegister.setAttribute('class', 'buttonRegister');
   buttonRegister.textContent = 'Registrate';
-  buttonLogin.textContent = 'Inicia Sesión';
 
-  buttonLogin.addEventListener('click', () => onNavigate('/login'));
-  buttonRegister.addEventListener('click', () => onNavigate('/register'));
+  buttonLogin.addEventListener('click', () => on('/login'));
+  buttonRegister.addEventListener('click', () => on('/register'));
   logoDiv.append(logo, title);
-  containerLogin.append(labelEmail, labelPass, inputEmail, inputPass, buttonRegister, buttonLogin);
+  containerLogin.append(labelEmail, inputEmail, labelPass, inputPass, buttonLogin, buttonRegister);
   HomeDiv.append(logoDiv, welcome, containerLogin);
 
   return HomeDiv;

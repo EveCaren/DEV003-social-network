@@ -3,35 +3,38 @@ body{
 }
 #root{
     display: block;
-    
 }
 .containerLogin{
     background-color: #d9d9d9;
+    width: 296px;
+    height: 280px;
+    margin-left: 23px;
 }
 .logoDiv > img{
     height: 112px;
     width: 112px;
-}
-.logoDiv{
-    justify-content: center;
+    margin-left: 110px;
+    margin-top: 20px;
 }
 .title{
     font-size: 35px;
     color:#bf522a;
     font-family: 'Itim', cursive;
-    
+    text-align: center;
+    margin-top: 0px;
+}
+.labels{
+    font-size: 1rem;
+    font-family:Inter;
+    color: #122e40;
+    margin: 100px 24px 0px 24px;
 }
 .inputs{
     border-radius: 0.5rem;
     width: 15rem;
     height: 1.7rem;
     border: 2px solid #bf522a;
-}
-
-.labels{
-    font-size: 1rem;
-    font-family:Inter;
-    color: #122e40;
+    margin: 5px 24px;
 }
 
 .buttonLogin{
@@ -41,6 +44,8 @@ body{
     color:#122e40;   
     width: 10rem;
     height: 2rem; 
+    align-items: center;
+    margin: 8px 67px;
 }
 
 .buttonRegister{
@@ -50,6 +55,7 @@ body{
     color:#122e40;
     width: 8.8rem;
     height: 2rem;
+    margin: 30px 75px 10px 75px;
 }
 p{
     font-size: 1rem;

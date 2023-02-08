@@ -35,7 +35,7 @@ window.onpopstate = () => {
   while (rootDiv.firstChild) {
     rootDiv.removeChild(rootDiv.firstChild);
   }
-  rootDiv.append(component());
+  rootDiv.append(component(onNavigate));
 };
 
-rootDiv.appendChild(component());
+rootDiv.appendChild(component(onNavigate));

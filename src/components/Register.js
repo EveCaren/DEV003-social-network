@@ -1,11 +1,19 @@
-export const register = () => {
+export const register = (on) => {
   const HomeDiv = document.createElement('div');
-  HomeDiv.textContent = 'Bienvenida al registro';
-  const buttonHome = document.createElement('button');
+  HomeDiv.textContent = 'Registro';
+  const buttonCreate = document.createElement('button');
+  buttonCreate.setAttribute('class', 'buttonCreate');
+  buttonCreate.textContent = 'Crear cuenta';
 
-  buttonHome.textContent = 'Regresar al Home';
+  const buttonGmail = document.createElement('button');
+  buttonGmail.setAttribute('class', 'buttonGmail');
+  buttonGmail.textContent = 'Ingresar con Google';
 
-  HomeDiv.appendChild(buttonHome);
+  buttonCreate.addEventListener('click', () => on('/'));
+  buttonGmail.addEventListener('click', () => on('/'));
+
+  HomeDiv.appendChild(buttonCreate);
+  HomeDiv.appendChild(buttonGmail);
 
   return HomeDiv;
 };
