@@ -8,7 +8,9 @@ export const login = () => {
   button.textContent = 'Inicia sesión';
   buttonHome.textContent = 'Regresar al Home';
 
-  HomeDiv.append(title, button, buttonHome);
+  HomeDiv.appendChild(title);
+  HomeDiv.appendChild(button);
+  HomeDiv.appendChild(buttonHome);
 
   return HomeDiv;
 };
