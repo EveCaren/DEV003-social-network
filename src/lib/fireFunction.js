@@ -10,7 +10,7 @@ import { firebaseConfig } from './firebaseConfig.js';
 export const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export function register(email, password) {
+export function registerEvent(email, password) {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in

@@ -38,7 +38,6 @@ export const home = (on) => {
   buttonLogin.setAttribute('class', 'buttonLogin');
   buttonLogin.textContent = 'Inicia Sesión';
 
-
   const buttonRegister = document.createElement('button');
   buttonRegister.setAttribute('class', 'buttonRegister');
   buttonRegister.textContent = 'Registrate';

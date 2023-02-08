@@ -1,19 +1,72 @@
-export const register = (on) => {
+import { registerEvent } from '../lib/fireFunction.js';
+
+export const register = (onNavigate) => {
   const HomeDiv = document.createElement('div');
   HomeDiv.textContent = 'Registro';
+  const logoDiv = document.createElement('div');
+  logoDiv.setAttribute('class', 'logoDiv');
+  const logo = document.createElement('img');
+  logo.setAttribute('src', '/img/logo.png');
+  logo.setAttribute('alt', 'logoAlt');
+  logo.setAttribute('class', 'logo');
+  const title = document.createElement('h2');
+  title.setAttribute('class', 'title');
+  title.textContent = 'PETGRAM';
+  // formulario
+  const labelUser = document.createElement('label');
+  labelUser.setAttribute('class', 'labels');
+  labelUser.textContent = 'Usuario';
+  const labelDate = document.createElement('label');
+  labelDate.setAttribute('class', 'labels');
+  labelDate.textContent = 'Fecha de Nacimiento';
+  const labelSex = document.createElement('label');
+  labelSex.setAttribute('class', 'labels');
+  labelSex.textContent = 'Sexo';
+  const labelEmail = document.createElement('label');
+  labelEmail.setAttribute('class', 'labels');
+  labelEmail.textContent = 'Correo';
+  const labelPass = document.createElement('label');
+  labelPass.setAttribute('class', 'labels');
+  labelPass.textContent = 'Contraseña';
+  const inputUser = document.createElement('input');
+  inputUser.setAttribute('type', 'text');
+  inputUser.setAttribute('class', 'inputs');
+  const inputDate = document.createElement('input');
+  inputDate.setAttribute('type', 'text');
+  inputDate.setAttribute('class', 'inputs');
+  const inputSex = document.createElement('input');
+  inputSex.setAttribute('type', 'text');
+  inputSex.setAttribute('class', 'inputs');
+  const inputEmail = document.createElement('input');
+  inputEmail.setAttribute('type', 'text');
+  inputEmail.setAttribute('class', 'inputs');
+  const inputPass = document.createElement('input');
+  inputPass.setAttribute('type', 'text');
+  inputPass.setAttribute('class', 'inputs');
+
+  // botones
   const buttonCreate = document.createElement('button');
   buttonCreate.setAttribute('class', 'buttonCreate');
   buttonCreate.textContent = 'Crear cuenta';
-
   const buttonGmail = document.createElement('button');
   buttonGmail.setAttribute('class', 'buttonGmail');
   buttonGmail.textContent = 'Ingresar con Google';
 
-  buttonCreate.addEventListener('click', () => on('/'));
-  buttonGmail.addEventListener('click', () => on('/'));
-
+  buttonCreate.addEventListener('click', () => registerEvent(inputEmail.value, inputPass.value));
+  buttonGmail.addEventListener('click', () => onNavigate('/'));
+  logoDiv.append(logo, title);
+  HomeDiv.append(logoDiv);
+  HomeDiv.appendChild(labelUser);
+  HomeDiv.appendChild(inputUser);
+  HomeDiv.appendChild(labelDate);
+  HomeDiv.appendChild(inputDate);
+  HomeDiv.appendChild(labelSex);
+  HomeDiv.appendChild(inputSex);
+  HomeDiv.appendChild(labelEmail);
+  HomeDiv.appendChild(inputEmail);
+  HomeDiv.appendChild(labelPass);
+  HomeDiv.appendChild(inputPass);
   HomeDiv.appendChild(buttonCreate);
   HomeDiv.appendChild(buttonGmail);
-
   return HomeDiv;
 };

@@ -37,7 +37,7 @@ body{
     margin: 5px 24px;
 }
 
-.buttonLogin{
+.buttonLogin, .buttonCreate{
     border-radius: 0.5rem;
     background-color: #f2a71b;
     font-size: 1rem;
@@ -57,6 +57,17 @@ body{
     height: 2rem;
     margin: 30px 75px 10px 75px;
 }
+.buttonGmail{
+    border-radius: 0.5rem;
+    background-color: #fdfffd;
+    font-size: 1rem ;
+    color:#122e40;
+    width: 14rem;
+    height: 2rem;
+    margin: 30px 75px 10px 75px;
+}
+
+
 p{
     font-size: 1rem;
     color:#122e40;
