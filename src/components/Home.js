@@ -1,4 +1,4 @@
-// import { onNavigate } from '../main.js';
+import { login } from '../lib/fireFunction.js';
 
 export const home = (on) => {
   const HomeDiv = document.createElement('div');
@@ -37,11 +37,13 @@ export const home = (on) => {
   const buttonLogin = document.createElement('button');
   buttonLogin.setAttribute('class', 'buttonLogin');
   buttonLogin.textContent = 'Inicia Sesión';
+
+
   const buttonRegister = document.createElement('button');
   buttonRegister.setAttribute('class', 'buttonRegister');
   buttonRegister.textContent = 'Registrate';
 
-  buttonLogin.addEventListener('click', () => on('/login'));
+  buttonLogin.addEventListener('click', () => login(inputEmail.value, inputPass.value));
   buttonRegister.addEventListener('click', () => on('/register'));
   logoDiv.append(logo, title);
   containerLogin.append(labelEmail, inputEmail, labelPass, inputPass, buttonLogin, buttonRegister);
