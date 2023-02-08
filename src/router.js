@@ -8,34 +8,34 @@ import { home } from './components/Home.js';
 import { register } from './components/Register.js';
 import { login } from './components/Login.js';
 
-const rootDiv = document.getElementById('root');
+const root = document.getElementById('root');
 
 const routes = {
   '/': home,
   '/register': register,
   '/login': login,
 };
-
+// método que toma el nombre de la ruta y renderiza la sección de acuerdo a este
 export const onNavigate = (pathname) => {
   window.history.pushState(
     {},
     pathname,
     window.location.origin + pathname,
   );
-  while (rootDiv.firstChild) {
-    rootDiv.removeChild(rootDiv.firstChild);
+  while (root.firstChild) {
+    root.removeChild(root.firstChild);
   }
 
-  rootDiv.appendChild(routes[pathname]());
+  root.appendChild(routes[pathname]()); // "()"para que se ejecute
 };
 
 const component = routes[window.location.pathname];
-
+// regresar al layout anterior mediante onpopstate
 window.onpopstate = () => {
-  while (rootDiv.firstChild) {
-    rootDiv.removeChild(rootDiv.firstChild);
+  while (root.firstChild) {
+    root.removeChild(root.firstChild);
   }
-  rootDiv.append(component(onNavigate));
+  root.append(component(onNavigate));
 };
 
-rootDiv.appendChild(component(onNavigate));
+root.appendChild(component(onNavigate));
