@@ -1,6 +1,7 @@
-import { registerEvent, loginGoogle } from '../lib/fireFunction.js';
+import { registerEvent, registerGoogle, GoogleAuthProvider } from '../lib/fireFunction.js';
+// import { onNavigate } from '../router.js';
 
-export const register = () => {
+export const register = (onNavigate) => {
   const HomeDiv = document.createElement('div');
   const logoDiv = document.createElement('div');
   const RegTitleDiv = document.createElement('div');
@@ -52,6 +53,7 @@ export const register = () => {
   // botones
   const buttonCreate = document.createElement('button');
   buttonCreate.setAttribute('class', 'buttonCreate');
+  buttonCreate.setAttribute('type', 'submit');
   // poner un href o a tyope button para redirigir el código
   buttonCreate.textContent = 'Crear cuenta';
   const buttonGmail = document.createElement('button');
@@ -64,51 +66,99 @@ export const register = () => {
     const userValue = inputUser.value;
     const mailValue = inputEmail.value;
     const passValue = inputPass.value;
-    const exprReg = /[A-z]/g;
+    // const exprReg = /[A-z]/g;
 
-    function showError(userValue, divError) {
-      if (exprReg.test(userValue)) {
-        divError.innerHTML('válido');
-        inputUser.style.borderColor = 'green';
-      } else {
-        divError.innerHTML('inválido');
-        inputUser.style.borderColor = 'red';
-      }
-    }
+    // function showError(userValue, divError) {
+    //   if (exprReg.test(userValue)) {
+    //     divError.innerHTML('válido');
+    //     inputUser.style.borderColor = 'green';
+    //   } else {
+    //     divError.innerHTML('inválido');
+    //     inputUser.style.borderColor = 'red';
+    //   }
+    // }
     if (userValue === '' || userValue.length < 5) {
-      alert('El usuario debe ser mayor a 5 caracteres');
+      Toastify({
+        text: 'El usuario debe ser mayor a 5 caracteres.',
+        duration: 6000,
+        style: {
+          background: "linear-gradient(to right, #f2a71b, #bf522a)",
+        },
+      }).showToast();
     } else if (userValue && mailValue && passValue) {
       registerEvent(mailValue, passValue)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
           // si la promesa es positiva debería redirigirme al login router
+          onNavigate('/');
+          Toastify({
+            text: '¡Bienvenido a PETGRAM! Ya puedes iniciar sesión',
+            duration: 5000,
+            style: {
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
+            },
+          }).showToast();
         })
         .catch((error) => {
           const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log('errorcode', errorCode, 'errormessage', errorMessage);
-          // ..
           if (errorCode) {
             if (errorCode === 'auth/invalid-email') {
-              alert('Correo inválido');
+              Toastify({
+                text: 'Correo inválido.',
+                duration: 6000,
+                style: {
+                  background: "linear-gradient(to right, #f2a71b, #bf522a)",
+                },
+              }).showToast();
             } else if (errorCode === 'auth/email-already-in-use') {
-              alert('Correo inválido, ya esta en uso');
+              Toastify({
+                text: 'Correo inválido, ya esta en uso.',
+                duration: 6000,
+                style: {
+                  background: "linear-gradient(to right, #f2a71b, #bf522a)",
+                },
+              }).showToast();
             } else if (errorCode === 'auth/weak-password') {
-              alert('su contraseña es débil, ponga al menos 6 caracteres');
+              Toastify({
+                text: 'Su contraseña es débil, ponga al menos 6 caracteres.',
+                duration: 6000,
+                style: {
+                  background: "linear-gradient(to right, #f2a71b, #bf522a)",
+                },
+              }).showToast();
             }
           }
         });
     }
   });
 
-  buttonGmail.addEventListener('click', () => loginGoogle('/'));
-
+  buttonGmail.addEventListener('click', () => {
+    registerGoogle().then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      console.log(user);
+      // IdP data available using getAdditionalUserInfo(result)
+      onNavigate('/muro');
+    }).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
+  });
 
   logoDiv.append(logo, title);
   form.append(labelUser, inputUser, divError, labelEmail, inputEmail);
-  form.append(labelPass, inputPass, buttonCreate, buttonGmail);
-  containerRegister.append(form);
+  form.append(labelPass, inputPass, buttonCreate);
+  containerRegister.append(form, buttonGmail);
   HomeDiv.append(logoDiv, RegTitleDiv, containerRegister);
   return HomeDiv;
 };
