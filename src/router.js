@@ -6,14 +6,14 @@
 
 import { home } from './components/Home.js';
 import { register } from './components/Register.js';
-import { login } from './components/Login.js';
+import { muro } from './components/Muro.js';
 
 const root = document.getElementById('root');
 
 const routes = {
   '/': home,
   '/register': register,
-  '/login': login,
+  '/muro': muro,
 };
 // método que toma el nombre de la ruta y renderiza la sección de acuerdo a este
 export const onNavigate = (pathname) => {
