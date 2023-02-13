@@ -25,7 +25,7 @@ export const muro = () => {
 
   logoDiv.append(logo, title);
   writeMuro.append();
-  
+
   HomeDiv.append(logoDiv, writeMuro, postMuro, button, buttonHome);
 
   return HomeDiv;

@@ -1,3 +1,4 @@
+import Toastify from 'toastify-js';
 import { login } from '../lib/fireFunction.js';
 // import { onNavigate } from '../router.js';
 
@@ -34,9 +35,11 @@ export const home = (onNavigate) => {
   const inputEmail = document.createElement('input');
   inputEmail.setAttribute('type', 'text');
   inputEmail.setAttribute('class', 'inputs');
+  inputEmail.placeholder = 'xxxxxxxx@gmail.com';
   const inputPass = document.createElement('input');
   inputPass.setAttribute('type', 'text');
   inputPass.setAttribute('class', 'inputs');
+  inputPass.placeholder = 'xxxxxxxx';
   // Botones
   const buttonLogin = document.createElement('button');
   buttonLogin.setAttribute('class', 'buttonLogin');
@@ -56,23 +59,25 @@ export const home = (onNavigate) => {
         text: 'Por favor ingresar datos.',
         duration: 6000,
         style: {
-          background: "linear-gradient(to right, #f2a71b, #bf522a)",
+          background: 'linear-gradient(to right, #f2a71b, #bf522a)',
         },
       }).showToast();
     } else if (valueEmail && valuePass) {
       login(valueEmail, valuePass).then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        user.setAttribute('id', 'user');
         onNavigate('/muro');
       }).catch((error) => {
         const errorCode = error.code;
+        errorCode.setAttribute('id', 'errorCode');
         if (errorCode) {
           if (errorCode === 'auth/invalid-email') {
             Toastify({
-              text: 'Correo inválido.',
+              text: error.message,
               duration: 6000,
               style: {
-                background: "linear-gradient(to right, #f2a71b, #bf522a)",
+                background: 'linear-gradient(to right, #f2a71b, #bf522a)',
               },
             }).showToast();
           } else if (errorCode === 'auth/wrong-password') {
@@ -80,7 +85,7 @@ export const home = (onNavigate) => {
               text: 'Contraseña inválida.',
               duration: 6000,
               style: {
-                background: "linear-gradient(to right, #f2a71b, #bf522a)",
+                background: 'linear-gradient(to right, #f2a71b, #bf522a)',
               },
             }).showToast();
           }

@@ -82,7 +82,7 @@ export const register = (onNavigate) => {
         text: 'El usuario debe ser mayor a 5 caracteres.',
         duration: 6000,
         style: {
-          background: "linear-gradient(to right, #f2a71b, #bf522a)",
+          background: 'linear-gradient(to right, #f2a71b, #bf522a)',
         },
       }).showToast();
     } else if (userValue && mailValue && passValue) {
@@ -90,13 +90,14 @@ export const register = (onNavigate) => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          user.setAttribute('id', 'userRegister');
           // si la promesa es positiva debería redirigirme al login router
           onNavigate('/');
           Toastify({
             text: '¡Bienvenido a PETGRAM! Ya puedes iniciar sesión',
             duration: 5000,
             style: {
-              background: "linear-gradient(to right, #00b09b, #96c93d)",
+              background: 'linear-gradient(to right, #00b09b, #96c93d)',
             },
           }).showToast();
         })
@@ -108,7 +109,7 @@ export const register = (onNavigate) => {
                 text: 'Correo inválido.',
                 duration: 6000,
                 style: {
-                  background: "linear-gradient(to right, #f2a71b, #bf522a)",
+                  background: 'linear-gradient(to right, #f2a71b, #bf522a)',
                 },
               }).showToast();
             } else if (errorCode === 'auth/email-already-in-use') {
@@ -116,7 +117,7 @@ export const register = (onNavigate) => {
                 text: 'Correo inválido, ya esta en uso.',
                 duration: 6000,
                 style: {
-                  background: "linear-gradient(to right, #f2a71b, #bf522a)",
+                  background: 'linear-gradient(to right, #f2a71b, #bf522a)',
                 },
               }).showToast();
             } else if (errorCode === 'auth/weak-password') {
@@ -124,7 +125,7 @@ export const register = (onNavigate) => {
                 text: 'Su contraseña es débil, ponga al menos 6 caracteres.',
                 duration: 6000,
                 style: {
-                  background: "linear-gradient(to right, #f2a71b, #bf522a)",
+                  background: 'linear-gradient(to right, #f2a71b, #bf522a)',
                 },
               }).showToast();
             }
@@ -140,7 +141,7 @@ export const register = (onNavigate) => {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      console.log(user);
+      // console.log(user);
       // IdP data available using getAdditionalUserInfo(result)
       onNavigate('/muro');
     }).catch((error) => {
@@ -163,8 +164,7 @@ export const register = (onNavigate) => {
   return HomeDiv;
 };
 
-
-/* optiones sexo y fecha de nac. 
+/* optiones sexo y fecha de nac.
 const labelDate = document.createElement('label');
 const labelSex = document.createElement('label');
 const inputDate = document.createElement('input');
