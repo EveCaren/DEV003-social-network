@@ -74,3 +74,18 @@ p{
     text-align: center;
     font-family: Inter;
 }
+
+/* medida para  desktop de más de 1280 px*/
+@media (min-width: 1280px) {
+    body{
+        background-color: green;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .logoDiv > img{
+        margin-left: 265px;
+    }
+    .containerLogin{
+        display: block;
+    }
+}
