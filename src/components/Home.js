@@ -16,6 +16,7 @@ export const home = (onNavigate) => {
   title.setAttribute('class', 'title');
   title.textContent = 'PETGRAM';
   const welcome = document.createElement('p');
+  welcome.setAttribute('class', 'welcome');
   welcome.textContent = `¡Bienvenido! Nos alegra que 
   estés aquí. Petgram es una 
   comunidad enorme en la que 
@@ -63,14 +64,15 @@ export const home = (onNavigate) => {
         },
       }).showToast();
     } else if (valueEmail && valuePass) {
-      login(valueEmail, valuePass).then((userCredential) => {
+      login(valueEmail, valuePass).then(() => {
         // Signed in
-        const user = userCredential.user;
-        user.setAttribute('id', 'user');
+        // const user = userCredential.user;
+        // alert(user);
+        // user.setAttribute('id', 'user');
         onNavigate('/muro');
       }).catch((error) => {
         const errorCode = error.code;
-        errorCode.setAttribute('id', 'errorCode');
+        // errorCode.setAttribute('id', 'errorCode');
         if (errorCode) {
           if (errorCode === 'auth/invalid-email') {
             Toastify({
@@ -95,10 +97,10 @@ export const home = (onNavigate) => {
   });
 
   buttonRegister.addEventListener('click', () => onNavigate('/register'));
-  logoDiv.append(logo, title);
+  logoDiv.append(logo, title, welcome);
   formLogin.append(labelEmail, inputEmail, labelPass, inputPass, buttonLogin);
   containerLogin.append(formLogin, buttonRegister);
-  HomeDiv.append(logoDiv, welcome, containerLogin);
+  HomeDiv.append(logoDiv, containerLogin);
 
   return HomeDiv;
 };
