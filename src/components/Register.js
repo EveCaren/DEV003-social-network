@@ -1,10 +1,11 @@
-import { registerEvent, registerGoogle, GoogleAuthProvider } from '../lib/fireFunction.js';
+import Toastify from 'toastify-js';
+import { registerEvent } from '../lib/fireFunction.js';
 // import { onNavigate } from '../router.js';
 
 export const register = (onNavigate) => {
-  const HomeDiv = document.createElement('div');
+  const HomeDivReg = document.createElement('div');
+  HomeDivReg.setAttribute('class', 'HomeDivReg');
   const logoDiv = document.createElement('div');
-  const RegTitleDiv = document.createElement('div');
   const containerRegister = document.createElement('div');
   containerRegister.setAttribute('class', 'containerRegis');
   containerRegister.setAttribute('id', 'containerRegis');
@@ -20,7 +21,9 @@ export const register = (onNavigate) => {
   const title = document.createElement('h2');
   title.setAttribute('class', 'title');
   title.textContent = 'PETGRAM';
-  RegTitleDiv.textContent = 'Registro';
+  const RegTitle = document.createElement('P');
+  RegTitle.setAttribute('class', 'RegTitle');
+  RegTitle.textContent = 'Registro';
   // formulario etiquetas
   const labelUser = document.createElement('label');
   const labelEmail = document.createElement('label');
@@ -39,15 +42,15 @@ export const register = (onNavigate) => {
   labelPass.setAttribute('class', 'labels');
   // atributos inputs
   inputUser.setAttribute('type', 'text');
-  inputUser.setAttribute('class', 'inputs');
+  inputUser.setAttribute('class', 'inputsReg');
   inputUser.setAttribute('id', 'user');
   // inputUser.required = 'true';
   inputEmail.setAttribute('type', 'text');
-  inputEmail.setAttribute('class', 'inputs');
+  inputEmail.setAttribute('class', 'inputsReg');
   inputEmail.setAttribute('id', 'email');
   // inputEmail.required = 'true';
   inputPass.setAttribute('type', 'text');
-  inputPass.setAttribute('class', 'inputs');
+  inputPass.setAttribute('class', 'inputsReg');
   inputPass.setAttribute('id', 'pass');
   // inputPass.required = 'true';
   // botones
@@ -90,7 +93,7 @@ export const register = (onNavigate) => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          user.setAttribute('id', 'userRegister');
+          console.log(user);
           // si la promesa es positiva debería redirigirme al login router
           onNavigate('/');
           Toastify({
@@ -134,34 +137,34 @@ export const register = (onNavigate) => {
     }
   });
 
-  buttonGmail.addEventListener('click', () => {
-    registerGoogle().then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      // console.log(user);
-      // IdP data available using getAdditionalUserInfo(result)
-      onNavigate('/muro');
-    }).catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
-    });
-  });
+  // buttonGmail.addEventListener('click', () => {
+  //   registerGoogle().then((result) => {
+  //     // This gives you a Google Access Token. You can use it to access the Google API.
+  //     const credential = GoogleAuthProvider.credentialFromResult(result);
+  //     const token = credential.accessToken;
+  //     // The signed-in user info.
+  //     const user = result.user;
+  //     // console.log(user);
+  //     // IdP data available using getAdditionalUserInfo(result)
+  //     onNavigate('/muro');
+  //   }).catch((error) => {
+  //     // Handle Errors here.
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     // The email of the user's account used.
+  //     const email = error.customData.email;
+  //     // The AuthCredential type that was used.
+  //     const credential = GoogleAuthProvider.credentialFromError(error);
+  //     // ...
+  //   });
+  // });
 
   logoDiv.append(logo, title);
   form.append(labelUser, inputUser, divError, labelEmail, inputEmail);
   form.append(labelPass, inputPass, buttonCreate);
-  containerRegister.append(form, buttonGmail);
-  HomeDiv.append(logoDiv, RegTitleDiv, containerRegister);
-  return HomeDiv;
+  containerRegister.append(RegTitle, form, buttonGmail);
+  HomeDivReg.append(logoDiv, containerRegister);
+  return HomeDivReg;
 };
 
 /* optiones sexo y fecha de nac.

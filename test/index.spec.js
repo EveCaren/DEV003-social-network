@@ -1,8 +1,14 @@
+/* eslint-disable no-unused-vars */
 // importamos la funcion que vamos a testear
+import Toastify from 'toastify-js';
 import { login } from '../src/lib/fireFunction';
-import Home from '../src/components/Home';
+import { home } from '../src/components/Home';
 
 jest.mock('../src/lib/fireFunction');
+
+jest.mock('toastify-js', () => jest.fn(() => ({
+  showToast: jest.fn(),
+})));
 
 function time() {
   return new Promise((resolve) => {
@@ -18,11 +24,10 @@ describe('test de home', () => {
   let labelPass;
   let inputPass;
   let buttonLogin;
-  let errorCode;
   let user;
 
   beforeEach(() => {
-    document.body.appendChild(Home());
+    document.body.appendChild(home());
     containerLogin = document.querySelector('.containerLogin');
     formLogin = document.querySelector('.formLogin');
     labelEmail = document.querySelector('.labels');
@@ -30,30 +35,23 @@ describe('test de home', () => {
     labelPass = document.querySelector('.labels');
     inputPass = document.querySelector('.inputs');
     buttonLogin = document.querySelector('.buttonLogin');
-    errorCode = document.getElementById('errorCode');
     user = document.getElementById('user');
   });
 
-  it('Debería mostrar un error', async () => {
-    login.mockImplementationOnce((email, password) => {
-      return Promise.reject(
-        new Error('Firebase: Error (auth/invalid-email).'),
-      );
-    });
-
+  it('Debería mostrar un error (llamar a Toastify una vez )', async () => {
+    login.mockImplementationOnce(() => Promise.reject(
+      new Error('Firebase: Error (auth/invalid-email).'),
+    ));
     buttonLogin.click();
     await time();
-    expect(errorCode.innerHTML).toBe(
-      'Firebase: Error (auth/invalid-email).',
-    );
+    // --------------llamar a Toastify-------------------
+    expect(Toastify).toHaveBeenCalled();
   });
 
   it('Debería mostrar éxito', async () => {
-    login.mockImplementationOnce((email, password) => {
-      return Promise.resolve({
-        user: { userCredential: 9876, email: email }
-      });
-    });
+    login.mockImplementationOnce((email) => Promise.resolve({
+      user: { userCredential: 9876, email },
+    }));
     inputEmail.value = 'email@verify.com';
     inputPass.value = '6789';
 
