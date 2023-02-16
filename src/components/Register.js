@@ -13,6 +13,8 @@ export const register = (onNavigate) => {
   const form = document.createElement('form');
   form.setAttribute('class', 'form');
   form.setAttribute('id', 'form');
+  const btnDiv = document.createElement('div');
+  btnDiv.setAttribute('class', 'btnDiv');
   logoDiv.setAttribute('class', 'logoDiv');
   const logo = document.createElement('img');
   logo.setAttribute('src', '/img/logo.png');
@@ -23,7 +25,7 @@ export const register = (onNavigate) => {
   title.textContent = 'PETGRAM';
   const RegTitle = document.createElement('P');
   RegTitle.setAttribute('class', 'RegTitle');
-  RegTitle.textContent = 'Registro';
+  RegTitle.textContent = 'Regístrate';
   // formulario etiquetas
   const labelUser = document.createElement('label');
   const labelEmail = document.createElement('label');
@@ -59,6 +61,10 @@ export const register = (onNavigate) => {
   buttonCreate.setAttribute('type', 'submit');
   // poner un href o a tyope button para redirigir el código
   buttonCreate.textContent = 'Crear cuenta';
+  const gmailDiv = document.createElement('div');
+  gmailDiv.setAttribute('class', 'gmailDiv');
+  const iconGoogle = document.createElement('i');
+  iconGoogle.className = 'fa-brands fa-google';
   const buttonGmail = document.createElement('button');
   buttonGmail.setAttribute('class', 'buttonGmail');
   buttonGmail.textContent = 'Ingresar con Google';
@@ -159,11 +165,14 @@ export const register = (onNavigate) => {
   //   });
   // });
 
-  logoDiv.append(logo, title);
+  logoDiv.append(logo, title, RegTitle);
+  btnDiv.appendChild(buttonCreate);
   form.append(labelUser, inputUser, divError, labelEmail, inputEmail);
-  form.append(labelPass, inputPass, buttonCreate);
-  containerRegister.append(RegTitle, form, buttonGmail);
-  HomeDivReg.append(logoDiv, containerRegister);
+  form.append(labelPass, inputPass, btnDiv);
+  containerRegister.append(form);
+  gmailDiv.appendChild(iconGoogle);
+  gmailDiv.appendChild(buttonGmail);
+  HomeDivReg.append(logoDiv, containerRegister, gmailDiv);
   return HomeDivReg;
 };
 

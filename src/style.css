@@ -1,7 +1,7 @@
 body{
     background-color: #f2f2f2;
 }
-.HomeDiv{
+.HomeDiv, .HomeDivReg{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -29,8 +29,9 @@ body{
     color:#122e40;
     text-align: center;
     font-family: 'Inter', sans-serif;
+    margin: 0% 4%;
 }
-.containerLogin{
+.containerLogin, .containerRegis{
     background-color: #d9d9d9;
     width: 85%;
     height: 100%;
@@ -43,7 +44,7 @@ body{
     padding: 5% 0%;
     border-radius: 3%;
 }
-.formLogin{
+.formLogin, .form{
     line-height: 200%;
 }
 .labels{
@@ -52,7 +53,7 @@ body{
     color: #122e40;
     display: flex;
 }
-.inputs{
+.inputs, .inputsReg{
     border-radius: 0.5rem;
     width: 15rem;
     height: 1.7rem;
@@ -65,7 +66,7 @@ body{
     justify-content: center;
     margin: 8% 0%;
 }
-.buttonLogin{
+.buttonLogin, .buttonCreate{
     border-radius: 0.5rem;
     background-color: #f2a71b;
     font-size: 1rem;
@@ -87,28 +88,26 @@ body{
     height: 2rem;
     align-items: center;
 }
+.footer{
+    color: rgb(108, 109, 106);
+    font-size: 0.8rem;
+}
 /* estilo resgister.js*/
-.containerRegis{
-    width: 296px;
-    height: 280px;
+.gmailDiv{
+    background-color: #d9d9d9;
+    width: 85%;
+    height: 55%;
+    display: flex;
+    justify-content: center;
+    padding: 4% 0%;
 }
-.inputsReg{
-    border-radius: 0.5rem;
-    width: 15rem;
-    height: 1.7rem;
-    border: 2px solid #bf522a;
-    margin: 5px 24px;
-}
-.buttonCreate{
-    border-radius: 0.5rem;
-    background-color: #f2a71b;
-    font-size: 1rem;
-    color:#122e40;   
-    width: 10rem;
-    height: 2rem; 
-    align-items: center;
-    margin: 8px 67px;
-}
+/* .gmailDiv .svg-inline--fa{
+    position: absolute;
+    margin-left: 14.5rem;
+    top: 2.1%;
+    background-color: var(--Verde-colorButton);
+    /* font-size: 1.5em; 
+}*/
 .buttonGmail{
     border-radius: 0.5rem;
     background-color: #fdfffd;
@@ -117,31 +116,29 @@ body{
     width: 14rem;
     height: 2rem;
     align-items: center;
-    margin: 30px 50px 10px;
 }
 
 
 /* medida para  desktop de más de 1280 px*-------------------------DESKTOP---------------------------*/
-@media (min-width: 1280px) {
+@media (min-width: 1280px){
     .HomeDiv{
         display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 1100px;
+        flex-direction: row;
+        /* justify-content: center;
+        align-items: center; */
     }
-    .logoDiv{
+    /* .logoDiv{
         display: inline-block;
-    }
+    }*/
     .containerLogin{
-        display: block;
-        justify-content: center;
-        align-items: center;
-    }
+        width: 35%;
+        height: 60%;
+    } 
     /* estilo para registes.js*/
-    .HomeDivReg{
+    /* .HomeDivReg{
         display: flex;
         justify-content: center;
         align-items: center;
         width: 1100px;
-    }
+    } */
 }
