@@ -13,6 +13,9 @@ export const home = (onNavigate) => {
   logo.setAttribute('class', 'logo');
   const btnDiv = document.createElement('div');
   btnDiv.setAttribute('class', 'btnDiv');
+  const footer = document.createElement('footer');
+  footer.setAttribute('class', 'footer');
+  footer.textContent = 'Social Network by Andre, Eli, Eve';
   // Inputs
   const title = document.createElement('h2');
   title.setAttribute('class', 'title');
@@ -100,10 +103,10 @@ export const home = (onNavigate) => {
 
   buttonRegister.addEventListener('click', () => onNavigate('/register'));
   logoDiv.append(logo, title, welcome);
-  btnDiv.appendChild(buttonLogin)
+  btnDiv.appendChild(buttonLogin);
   formLogin.append(labelEmail, inputEmail, labelPass, inputPass, btnDiv);
   containerLogin.append(formLogin, buttonRegister);
-  HomeDiv.append(logoDiv, containerLogin);
+  HomeDiv.append(logoDiv, containerLogin, footer);
 
   return HomeDiv;
 };
