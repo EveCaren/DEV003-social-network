@@ -23,6 +23,15 @@ export const register = (onNavigate) => {
   const title = document.createElement('h2');
   title.setAttribute('class', 'title');
   title.textContent = 'PETGRAM';
+  const welcome = document.createElement('p');
+  welcome.setAttribute('class', 'welcome');
+  welcome.textContent = `¡Bienvenido! Nos alegra que 
+  estés aquí. Petgram es una 
+  comunidad enorme en la que 
+  puedes compartir contenido 
+  diverso sobre tu mascota.`;
+  const containerAll = document.createElement('div');
+  containerAll.setAttribute('class', 'containerAll');
   const RegTitle = document.createElement('P');
   RegTitle.setAttribute('class', 'RegTitle');
   RegTitle.textContent = 'Regístrate';
@@ -44,14 +53,17 @@ export const register = (onNavigate) => {
   labelPass.setAttribute('class', 'labels');
   // atributos inputs
   inputUser.setAttribute('type', 'text');
+  inputUser.placeholder = 'Escriba aquí su usuario';
   inputUser.setAttribute('class', 'inputsReg');
   inputUser.setAttribute('id', 'user');
   // inputUser.required = 'true';
   inputEmail.setAttribute('type', 'text');
+  inputEmail.placeholder = 'Escriba aquí su correo';
   inputEmail.setAttribute('class', 'inputsReg');
   inputEmail.setAttribute('id', 'email');
   // inputEmail.required = 'true';
   inputPass.setAttribute('type', 'text');
+  inputPass.placeholder = 'Escriba aquí su contraseña';
   inputPass.setAttribute('class', 'inputsReg');
   inputPass.setAttribute('id', 'pass');
   // inputPass.required = 'true';
@@ -67,7 +79,7 @@ export const register = (onNavigate) => {
   iconGoogle.className = 'fa-brands fa-google';
   const buttonGmail = document.createElement('button');
   buttonGmail.setAttribute('class', 'buttonGmail');
-  buttonGmail.textContent = 'Ingresar con Google';
+  buttonGmail.textContent = 'Ingresar con Google  ';
 
   // promesas
   form.addEventListener('submit', (e) => {
@@ -165,14 +177,15 @@ export const register = (onNavigate) => {
   //   });
   // });
 
-  logoDiv.append(logo, title, RegTitle);
+  logoDiv.append(logo, title, welcome);
   btnDiv.appendChild(buttonCreate);
   form.append(labelUser, inputUser, divError, labelEmail, inputEmail);
   form.append(labelPass, inputPass, btnDiv);
   containerRegister.append(form);
-  gmailDiv.appendChild(iconGoogle);
+  buttonGmail.appendChild(iconGoogle);
   gmailDiv.appendChild(buttonGmail);
-  HomeDivReg.append(logoDiv, containerRegister, gmailDiv);
+  containerAll.append(RegTitle, containerRegister, gmailDiv);
+  HomeDivReg.append(logoDiv, containerAll);
   return HomeDivReg;
 };
 
