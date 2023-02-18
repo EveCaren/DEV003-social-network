@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 
 import {
   getAuth,
@@ -7,6 +8,11 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from 'firebase/auth';
+
+import{
+  addDoc, collection, getDocs
+}from 'firebase/firestore';
+
 import { firebaseConfig } from './firebaseConfig.js';
 
 export const app = initializeApp(firebaseConfig);
@@ -36,3 +42,19 @@ export function registerGoogle() {
   return signInWithPopup(auth, provider);
 }
 export { GoogleAuthProvider };
+
+// Firestore
+
+const db = getFirestore(app);
+
+export const saveTask = (description, userName, uidUser) => {
+  const today = new Date();
+
+  return addDoc(collection(db, 'tasks'), {
+    uidUser,
+    userName,
+    description,
+    date: today,
+    like: [],
+  });
+};
