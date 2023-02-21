@@ -1,5 +1,6 @@
 // import { updateCurrentUser } from 'firebase/auth';
-import { addANewPost, currentUserInfo } from '../lib/fireFunction.js';
+import { query, QuerySnapshot } from 'firebase/firestore';
+import { addANewPost, currentUserInfo, printPost } from '../lib/fireFunction.js';
 
 export const muro = () => {
   const userMuro = currentUserInfo().displayName;
@@ -67,6 +68,12 @@ export const muro = () => {
 
   write.placeholder = '¿En qué estás pensando?';
 
+  // enlistar posts
+  printPost(querySnapshot => {
+    console.log(querySnapshot);
+    querySnapshot.forEach(doc => console.log(doc.data()));
+  });
+
   // Función del boton publicar
   buttonPublish.addEventListener('click', (e) => {
     e.preventDefault();
@@ -79,9 +86,6 @@ export const muro = () => {
     }
     // función para agregar datos
   });
-
-
-
 
   logoDiv.append(logo, title);
   formMuro.append(write, buttonPublish);
@@ -100,5 +104,4 @@ export const muro = () => {
   HomeDivMuro.append(logoDiv, divContainer);
 
   return HomeDivMuro;
-
 };

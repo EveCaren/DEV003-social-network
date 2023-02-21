@@ -6,7 +6,8 @@ import {
   onSnapshot,
   where,
   getDocs,
-  query
+  query,
+  orderBy,
 } from 'firebase/firestore';
 
 import {
@@ -41,20 +42,23 @@ export { GoogleAuthProvider };
 
 export const currentUserInfo = () => auth.currentUser;
 
-
 // -----------------Firestore----------------------
 // Función que guarda los post de un usuario
 const db = getFirestore(app);
 export const addANewPost = (customer, postUser, uidUser) => {
   const today = new Date();
-  return addDoc(collection(db, customer), {
+  return addDoc(collection(db, 'posts'), {
     customer,
     postUser,
     uidUser,
     today,
     like: [],
-});
+  });
 };
+export const printPost = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('today')), callback);
+
+
+
 // Función para llamar a los post de un usuario
 // const q = query(collection(db, user), where(user, '==', true));
 // export const querySnapshot = await getDocs(q);
