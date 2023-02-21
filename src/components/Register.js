@@ -115,7 +115,6 @@ export const register = (onNavigate) => {
             displayName: userValue,
           })
           console.log(user);
-          // si la promesa es positiva debería redirigirme al login router
           onNavigate('/');
           Toastify({
             text: '¡Bienvenido a PETGRAM! Ya puedes iniciar sesión',

@@ -3,6 +3,10 @@ import {
   getFirestore,
   addDoc,
   collection,
+  onSnapshot,
+  where,
+  getDocs,
+  query
 } from 'firebase/firestore';
 
 import {
@@ -43,13 +47,21 @@ export const currentUserInfo = () => auth.currentUser;
 const db = getFirestore(app);
 export const addANewPost = (customer, postUser, uidUser) => {
   const today = new Date();
-  return addDoc(collection(db, 'orders'), {
+  return addDoc(collection(db, customer), {
     customer,
     postUser,
     uidUser,
     today,
+    like: [],
 });
 };
+// Función para llamar a los post de un usuario
+// const q = query(collection(db, user), where(user, '==', true));
+// export const querySnapshot = await getDocs(q);
+// querySnapshot.forEach((doc) => {
+//   // doc.data() is never undefined for query doc snapshots
+//   console.log(doc.id, " => ", doc.data());
+// });
 
 // Este posiblemente nos sirva para editar posts
 // const post = doc(db, 'postUser/post');

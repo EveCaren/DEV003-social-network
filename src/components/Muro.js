@@ -1,4 +1,3 @@
-// import { onAuthStateChanged } from 'firebase/auth';
 // import { updateCurrentUser } from 'firebase/auth';
 import { addANewPost, currentUserInfo } from '../lib/fireFunction.js';
 
@@ -14,6 +13,7 @@ export const muro = () => {
   const title = document.createElement('h2');
   const divContainer = document.createElement('div');
   const writeMuro = document.createElement('div');
+  const formMuro = document.createElement('form');
   const write = document.createElement('input');
   const post = document.createElement('button');
   const postMuro = document.createElement('div');
@@ -38,6 +38,7 @@ export const muro = () => {
   title.setAttribute('class', 'titleMuro');
   divContainer.setAttribute('class', 'divContainer');
   writeMuro.setAttribute('class', 'writeMuro');
+  formMuro.setAttribute('class', 'formMuro');
   write.setAttribute('class', 'write');
   post.setAttribute('class', 'post');
   postMuro.setAttribute('class', 'postMuro');
@@ -67,30 +68,26 @@ export const muro = () => {
   write.placeholder = '¿En qué estás pensando?';
 
   // Función del boton publicar
-
   buttonPublish.addEventListener('click', (e) => {
+    e.preventDefault();
     const postValue = write.value;
-    addANewPost(userMuro, postValue, UserIdMuro);
+    if (postValue !== '') {
+      addANewPost(userMuro, postValue, UserIdMuro);
+      formMuro.reset();
+    } else {
+      alert('No has escrito nada, revisa por favor');
+    }
+    // función para agregar datos
   });
 
 
-// función para agregar datos
-// try {
-//   const docRef = await addDoc(collection(db, "users"), {
-//     first: "paquito",
-//     last: "chetito",
-//     born: 2014
-//   });
-//   console.log("Document written with ID: ", docRef.id);
-// } catch (e) {
-//   console.error("Error adding document: ", e);
-// }
 
 
   logoDiv.append(logo, title);
+  formMuro.append(write, buttonPublish);
+  publishDiv.appendChild(formMuro);
+  writeMuro.append(publishDiv);
   divContainer.append(writeMuro, postMuro, postMuroSecond, buttonContainer);
-  writeMuro.append(write, publishDiv);
-  publishDiv.appendChild(buttonPublish);
   buttonContainer.append(buttonHome, buttonProfile);
   buttonHome.appendChild(logoButton);
   buttonProfile.appendChild(logoProfile);

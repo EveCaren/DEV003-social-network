@@ -70,10 +70,6 @@ export const home = (onNavigate) => {
       }).showToast();
     } else if (valueEmail && valuePass) {
       login(valueEmail, valuePass).then(() => {
-        // Signed in
-        // const user = userCredential.user;
-        // alert(user);
-        // user.setAttribute('id', 'user');
         onNavigate('/muro');
       }).catch((error) => {
         const errorCode = error.code;
