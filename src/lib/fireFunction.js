@@ -1,5 +1,9 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import {
+  getFirestore,
+  addDoc,
+  collection,
+} from 'firebase/firestore';
 
 import {
   getAuth,
@@ -8,10 +12,6 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from 'firebase/auth';
-
-import{
-  addDoc, collection, getDocs
-}from 'firebase/firestore';
 
 import { firebaseConfig } from './firebaseConfig.js';
 
@@ -25,17 +25,7 @@ export function registerEvent(email, password) {
 export function login(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
-// onAuthStateChanged(auth, (user) => {
-//   if (user) {
-//     // User is signed in, see docs for a list of available properties
-//     // https://firebase.google.com/docs/reference/js/firebase.User
-//     const uid = user.uid;
-//     // ...
-//   } else {
-//     // User is signed out
-//     // ...
-//   }
-// });
+
 // ------------Función para registrarse con Google-------------
 export function registerGoogle() {
   const provider = new GoogleAuthProvider();
@@ -43,18 +33,70 @@ export function registerGoogle() {
 }
 export { GoogleAuthProvider };
 
-// Firestore
+// -------------Función para identificar el usuario------------
 
+export const currentUserInfo = () => auth.currentUser;
+
+
+// -----------------Firestore----------------------
+// Función que guarda los post de un usuario
 const db = getFirestore(app);
-
-export const saveTask = (description, userName, uidUser) => {
+export const addANewPost = (customer, postUser, uidUser) => {
   const today = new Date();
-
-  return addDoc(collection(db, 'tasks'), {
+  return addDoc(collection(db, 'orders'), {
+    customer,
+    postUser,
     uidUser,
-    userName,
-    description,
-    date: today,
-    like: [],
-  });
+    today,
+});
 };
+
+// Este posiblemente nos sirva para editar posts
+// const post = doc(db, 'postUser/post');
+// function writePost() {
+//   const docData = {
+//     user: 'tako',
+//     Post: 'comentario2',
+//   };
+//   setDoc(post, docData, { merge: true });
+// }
+// writePost();
+
+
+
+
+
+// esta era una prueba para guardar tareas
+// export const saveTask = (description, userName, uidUser) => {
+//   const today = new Date();
+
+//   return addDoc(collection(db, 'tasks'), {
+//     uidUser,
+//     userName,
+//     description,
+//     date: today,
+//     like: [],
+//   });
+// };
+
+
+
+// ---------------------Observador----------
+// export function watcher() {
+//   onAuthStateChanged(auth, (user) => {
+//     if (user !== null) {
+//       const uid = user.uid;
+//       // User is signed in, see docs for a list of available properties
+//       user.providerData.forEach((profile) => {
+//         console.log(`Sign-in provider: ${profile.providerId}`);
+//         console.log(`  Provider-specific UID: ${profile.uid}`);
+//         console.log(`  Name: ${profile.displayName}`);
+//         console.log(`  Email: ${profile.email}`);
+//         console.log(`  Photo URL: ${profile.photoURL}`);
+//       });
+//     } else {
+//       // User is signed out se ejecuta cuando el usuario se desloguea
+//       console.log('no hay usuario');
+//     }
+//   });
+// }

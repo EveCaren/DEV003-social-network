@@ -1,5 +1,6 @@
 import Toastify from 'toastify-js';
-import { registerEvent } from '../lib/fireFunction.js';
+import { getAuth, updateProfile, GoogleAuthProvider } from 'firebase/auth';
+import { registerEvent, registerGoogle } from '../lib/fireFunction.js';
 // import { onNavigate } from '../router.js';
 
 export const register = (onNavigate) => {
@@ -108,6 +109,11 @@ export const register = (onNavigate) => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          // para guardar el nombre del usuario
+          const auth = getAuth();
+          updateProfile(auth.currentUser, {
+            displayName: userValue,
+          })
           console.log(user);
           // si la promesa es positiva debería redirigirme al login router
           onNavigate('/');
@@ -152,27 +158,27 @@ export const register = (onNavigate) => {
     }
   });
 
-  // buttonGmail.addEventListener('click', () => {
-  //   registerGoogle().then((result) => {
-  //     // This gives you a Google Access Token. You can use it to access the Google API.
-  //     const credential = GoogleAuthProvider.credentialFromResult(result);
-  //     const token = credential.accessToken;
-  //     // The signed-in user info.
-  //     const user = result.user;
-  //     // console.log(user);
-  //     // IdP data available using getAdditionalUserInfo(result)
-  //     onNavigate('/muro');
-  //   }).catch((error) => {
-  //     // Handle Errors here.
-  //     const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //     // The email of the user's account used.
-  //     const email = error.customData.email;
-  //     // The AuthCredential type that was used.
-  //     const credential = GoogleAuthProvider.credentialFromError(error);
-  //     // ...
-  //   });
-  // });
+  buttonGmail.addEventListener('click', () => {
+    registerGoogle().then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      // console.log(user);
+      // IdP data available using getAdditionalUserInfo(result)
+      onNavigate('/muro');
+    // }).catch((error) => {
+    //   // Handle Errors here.
+    //   const errorCode = error.code;
+    //   const errorMessage = error.message;
+    //   // The email of the user's account used.
+    //   const email = error.customData.email;
+    //   // The AuthCredential type that was used.
+    //   const credential = GoogleAuthProvider.credentialFromError(error);
+    //   // ...
+    });
+  });
 
   logoDiv.append(logo, title, welcome);
   btnDiv.appendChild(buttonCreate);

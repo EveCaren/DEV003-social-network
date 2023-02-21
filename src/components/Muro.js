@@ -1,4 +1,13 @@
+// import { onAuthStateChanged } from 'firebase/auth';
+// import { updateCurrentUser } from 'firebase/auth';
+import { addANewPost, currentUserInfo } from '../lib/fireFunction.js';
+
 export const muro = () => {
+  const userMuro = currentUserInfo().displayName;
+  const UserIdMuro = currentUserInfo().uid;
+  console.log(userMuro, UserIdMuro);
+
+  // maquetación del muro
   const HomeDivMuro = document.createElement('div');
   const logoDiv = document.createElement('div');
   const logo = document.createElement('img');
@@ -57,6 +66,27 @@ export const muro = () => {
 
   write.placeholder = '¿En qué estás pensando?';
 
+  // Función del boton publicar
+
+  buttonPublish.addEventListener('click', (e) => {
+    const postValue = write.value;
+    addANewPost(userMuro, postValue, UserIdMuro);
+  });
+
+
+// función para agregar datos
+// try {
+//   const docRef = await addDoc(collection(db, "users"), {
+//     first: "paquito",
+//     last: "chetito",
+//     born: 2014
+//   });
+//   console.log("Document written with ID: ", docRef.id);
+// } catch (e) {
+//   console.error("Error adding document: ", e);
+// }
+
+
   logoDiv.append(logo, title);
   divContainer.append(writeMuro, postMuro, postMuroSecond, buttonContainer);
   writeMuro.append(write, publishDiv);
@@ -73,4 +103,5 @@ export const muro = () => {
   HomeDivMuro.append(logoDiv, divContainer);
 
   return HomeDivMuro;
+
 };
