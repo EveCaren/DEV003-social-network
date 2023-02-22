@@ -6,6 +6,7 @@ body{
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 .logoDiv{
     display: flex;
@@ -69,7 +70,7 @@ body{
     padding: 5% 0%;
     border-radius: 3%;
 }
-.formLogin, .form{
+.formLogin, .form, .formMuro{
     line-height: 200%;
 }
 .labels{
@@ -140,11 +141,12 @@ body{
     height: 2rem;
     align-items: center;
 }
-
 .divContainer{
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    /* align-content: center;
+    align-items: center; */
 }
 
 .logoMuro{
@@ -152,40 +154,34 @@ body{
     flex-wrap: wrap;
 }
 .logoMuro> img{
-    height: 80px;
-    width: 80px;
+    height: 68px;
+    width: 68px;
+    padding-right: 7px;
 }
 .titleMuro{
     font-size: 1.3rem;
     color:#bf522a;
     font-family: 'Itim', cursive;
     margin: 7% 0%;
-
 }
 .writeMuro{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
     width: 80%;
     background:#d9d9d9;
     border-radius: 0.5rem;
     line-height: 5rem;  
-    
+    margin: 0% 8%;
 }
 .write{
-
-    width: 85%;
+    width: 100%;
+    height: 20%;
     border-radius: 0.3rem; 
-    padding: 8% 0%;
-    margin: 5% 0%;
-    
+    padding: 6% 2%;
+    margin: 10% 8%; 
 }
 .publishDiv{
     background-color: #d9d9d9;
     width: 85%;
     height: 55%;
-    display: flex;
-    justify-content: flex-end;
     margin: 0% 0% 3% 0%;
 
 }
@@ -196,16 +192,11 @@ body{
     color:#122e40;   
     width: 6rem;
     height: 2rem; 
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center; 
-    margin: 0px;
-}
-
-.buttonContainer{
-    background-color: #d9d9d9;
-    width: 100%;
+    /* display: flex;
+    flex-wrap: wrap; */
+    /* justify-content: center; */
+    /* align-content: center; */
+    margin-left: 70%; 
 }
 .buttonHome, .buttonProfile{
     width: 50px;
@@ -228,31 +219,38 @@ body{
     border-radius: 50%;
 }
 
-.buttonContainer{
+.footerCont{
+    background-color: #d9d9d9;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
-    
-    
+    /* position: absolute;
+    bottom: 0;*/
+} 
+.postMuro{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 5%;
 }
-.postMuro, .postMuroSecond{
+.cardPost{
     width: 90%;
     background:#d9d9d9;
     border-radius: 0.5rem;
-    height: 170px;
-    margin: 10% 0%;
-    
+    height: 10%;
+    margin: 3% 0%;
 }
-.likeDiv, .likeSecond{
+.likeDiv{
     margin-top: 35%;
 }
-.post, .postSecond{
+.post{
     width: 50px;
     height: 50px;
     border-radius: 50%;
     border-color: #d9d9d9;
 }
 
-.logoLike, .logoSecond{
+.logoLike{
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -294,17 +292,18 @@ body{
         margin-top: 5%;
     }
 
-    .likeDiv, .likeSecond{
+    .likeDiv{
         margin-top: 26%;
     
     }   
 
-    .postMuro, .postMuroSecond{
+    .postMuro{
     width: 85%;
     background:#d9d9d9;
     border-radius: 0.5rem;
     height: 240px;
     margin: 8% 0%;
+    justify-content: center;
     }
 }
 /* ----------DESKTOP----------- más de 1280 px*/
@@ -371,12 +370,11 @@ body{
         width: 50%;  
     }
         
-    .likeDiv, .likeSecond{
+    .likeDiv{
         margin-top: 27%;
-    
     }
-    
-    .postMuro, .postMuroSecond{
+
+    .postMuro{
         width: 65%;
         background:#d9d9d9;
         border-radius: 0.5rem;

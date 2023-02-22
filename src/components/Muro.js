@@ -1,12 +1,17 @@
 // import { updateCurrentUser } from 'firebase/auth';
-import { query, QuerySnapshot } from 'firebase/firestore';
-import { addANewPost, currentUserInfo, printPost } from '../lib/fireFunction.js';
+// import { query, QuerySnapshot } from 'firebase/firestore';
+import { addANewPost, printPost, stateLogin } from '../lib/fireFunction.js';
+
+let userMuro = '';
+let userIdMuro = '';
+
+stateLogin((user) => {
+  console.log(user);
+  userMuro = user.displayName;
+  userIdMuro = user.uid;
+});
 
 export const muro = () => {
-  const userMuro = currentUserInfo().displayName;
-  const UserIdMuro = currentUserInfo().uid;
-  console.log(userMuro, UserIdMuro);
-
   // maquetación del muro
   const HomeDivMuro = document.createElement('div');
   const logoDiv = document.createElement('div');
@@ -20,17 +25,13 @@ export const muro = () => {
   const postMuro = document.createElement('div');
   const likeDiv = document.createElement('div');
   const logoLike = document.createElement('img');
-  const postSecond = document.createElement('button');
-  const postMuroSecond = document.createElement('div');
-  const likeSecond = document.createElement('div');
-  const logoSecond = document.createElement('img');
   const buttonProfile = document.createElement('button');
   const logoProfile = document.createElement('img');
   const buttonHome = document.createElement('button');
   const logoButton = document.createElement('img');
   const publishDiv = document.createElement('div');
   const buttonPublish = document.createElement('button');
-  const buttonContainer = document.createElement('div');
+  const footerCont = document.createElement('footer');
 
   HomeDivMuro.setAttribute('class', 'HomeDivMuro');
   logoDiv.setAttribute('class', 'logoMuro');
@@ -47,12 +48,6 @@ export const muro = () => {
   logoLike.setAttribute('src', '/img/like.png');
   logoLike.setAttribute('alt', 'logoAlt');
   logoLike.setAttribute('class', 'logoLike');
-  postSecond.setAttribute('class', 'postSecond');
-  postMuroSecond.setAttribute('class', 'postMuroSecond');
-  likeSecond.setAttribute('class', 'likeSecond');
-  logoSecond.setAttribute('src', '/img/like.png');
-  logoSecond.setAttribute('alt', 'logoAlt');
-  logoSecond.setAttribute('class', 'logoSecond');
   publishDiv.setAttribute('class', 'publishDiv');
   buttonPublish.setAttribute('class', 'buttonPublish');
   buttonHome.setAttribute('class', 'buttonHome');
@@ -61,7 +56,7 @@ export const muro = () => {
   buttonProfile.setAttribute('class', 'buttonProfile');
   logoProfile.setAttribute('src', '/img/Max.jpeg');
   logoProfile.setAttribute('alt', 'logoAlt');
-  buttonContainer.setAttribute('class', 'buttonContainer');
+  footerCont.setAttribute('class', 'footerCont');
 
   title.textContent = 'PETGRAM';
   buttonPublish.textContent = 'Publicar';
@@ -69,9 +64,19 @@ export const muro = () => {
   write.placeholder = '¿En qué estás pensando?';
 
   // enlistar posts
-  printPost(querySnapshot => {
+  printPost((querySnapshot) => {
+    let contentPost = '';
     console.log(querySnapshot);
-    querySnapshot.forEach(doc => console.log(doc.data()));
+    querySnapshot.forEach((doc) => {
+      const docData = doc.data();
+      console.log(docData);
+
+      contentPost += `<div class = 'cardPost' id = 'cardPost'> 
+      <p class = 'customer'>${docData.customer}</p>
+      <p class = 'postUser'>${docData.postUser}</p>
+      </div>`;
+    });
+    postMuro.innerHTML = contentPost;
   });
 
   // Función del boton publicar
@@ -79,7 +84,7 @@ export const muro = () => {
     e.preventDefault();
     const postValue = write.value;
     if (postValue !== '') {
-      addANewPost(userMuro, postValue, UserIdMuro);
+      addANewPost(userMuro, postValue, userIdMuro);
       formMuro.reset();
     } else {
       alert('No has escrito nada, revisa por favor');
@@ -91,17 +96,14 @@ export const muro = () => {
   formMuro.append(write, buttonPublish);
   publishDiv.appendChild(formMuro);
   writeMuro.append(publishDiv);
-  divContainer.append(writeMuro, postMuro, postMuroSecond, buttonContainer);
-  buttonContainer.append(buttonHome, buttonProfile);
+  divContainer.append(writeMuro, postMuro);
+  footerCont.append(buttonHome, buttonProfile);
   buttonHome.appendChild(logoButton);
   buttonProfile.appendChild(logoProfile);
-  postMuroSecond.appendChild(likeSecond);
   postMuro.appendChild(likeDiv);
   likeDiv.appendChild(post);
-  likeSecond.appendChild(postSecond);
   post.appendChild(logoLike);
-  postSecond.appendChild(logoSecond);
-  HomeDivMuro.append(logoDiv, divContainer);
+  HomeDivMuro.append(logoDiv, divContainer, footerCont);
 
   return HomeDivMuro;
 };

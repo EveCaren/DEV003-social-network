@@ -16,6 +16,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  onAuthStateChanged,
 } from 'firebase/auth';
 
 import { firebaseConfig } from './firebaseConfig.js';
@@ -38,6 +39,11 @@ export function registerGoogle() {
 }
 export { GoogleAuthProvider };
 
+// ------------Función para verificar estado de login-------------
+export function stateLogin(state) {
+  return onAuthStateChanged(auth, state);
+}
+
 // -------------Función para identificar el usuario------------
 
 export const currentUserInfo = () => auth.currentUser;
@@ -56,8 +62,6 @@ export const addANewPost = (customer, postUser, uidUser) => {
   });
 };
 export const printPost = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('today')), callback);
-
-
 
 // Función para llamar a los post de un usuario
 // const q = query(collection(db, user), where(user, '==', true));
