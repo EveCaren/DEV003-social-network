@@ -61,7 +61,7 @@ export const addANewPost = (customer, postUser, uidUser) => {
     like: [],
   });
 };
-export const printPost = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('today')), callback);
+export const printPost = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('today', 'desc')), callback);
 
 // Función para llamar a los post de un usuario
 // const q = query(collection(db, user), where(user, '==', true));
