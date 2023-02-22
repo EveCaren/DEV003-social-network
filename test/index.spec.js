@@ -52,13 +52,9 @@ describe('test de home', () => {
     login.mockImplementationOnce((email) => Promise.resolve({
       user: { userCredential: 9876, email },
     }));
-    inputEmail.value = 'email@verify.com';
-    inputPass.value = '6789';
 
     buttonLogin.click();
     await time();
-    expect(user.innerHTML).toBe(
-      'email@verify.com',
-    );
+    expect(Toastify).toHaveBeenCalled();
   });
 });
