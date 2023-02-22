@@ -1,6 +1,7 @@
-// import { updateCurrentUser } from 'firebase/auth';
-// import { query, QuerySnapshot } from 'firebase/firestore';
-import { addANewPost, printPost, stateLogin } from '../lib/fireFunction.js';
+import {
+  addANewPost, printPost, stateLogin, removeLikes, addLikes,
+
+} from '../lib/fireFunction.js';
 
 let userMuro = '';
 let userIdMuro = '';
@@ -24,7 +25,6 @@ export const muro = () => {
   const post = document.createElement('button');
   const postMuro = document.createElement('div');
   const likeDiv = document.createElement('div');
-  const logoLike = document.createElement('img');
   const buttonProfile = document.createElement('button');
   const logoProfile = document.createElement('img');
   const buttonHome = document.createElement('button');
@@ -45,9 +45,6 @@ export const muro = () => {
   post.setAttribute('class', 'post');
   postMuro.setAttribute('class', 'postMuro');
   likeDiv.setAttribute('class', 'likeDiv');
-  logoLike.setAttribute('src', '/img/like.png');
-  logoLike.setAttribute('alt', 'logoAlt');
-  logoLike.setAttribute('class', 'logoLike');
   publishDiv.setAttribute('class', 'publishDiv');
   buttonPublish.setAttribute('class', 'buttonPublish');
   buttonHome.setAttribute('class', 'buttonHome');
@@ -74,9 +71,31 @@ export const muro = () => {
       contentPost += `<div class = 'cardPost' id = 'cardPost'> 
       <p class = 'customer'>${docData.customer}</p>
       <p class = 'postUser'>${docData.postUser}</p>
+       <div class = 'likeDiv'>
+       <button class = 'btnLike'>
+       <img src='img/mascotas.png' alt='logolike'>
+       </button>
+        <p class = 'numLike'>${0}</p>
+        <button class = 'btnEdit'>
+        <img src='img/lapiz.png' alt='logolike'>
+        </button>
+        <button class = 'btnDelete'>
+        <img src='img/eliminar.png' alt='logolike'>
+        </button>
+       </div>
       </div>`;
     });
     postMuro.innerHTML = contentPost;
+  });
+
+  // Función para añadir y quitar likes
+  function eventLikes() {
+    const btnLike = document.querySelector('btnLike');
+    btnLike.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+    });
   });
 
   // Función del boton publicar
@@ -102,7 +121,6 @@ export const muro = () => {
   buttonProfile.appendChild(logoProfile);
   postMuro.appendChild(likeDiv);
   likeDiv.appendChild(post);
-  post.appendChild(logoLike);
   HomeDivMuro.append(logoDiv, divContainer, footerCont);
 
   return HomeDivMuro;

@@ -4,10 +4,12 @@ import {
   addDoc,
   collection,
   onSnapshot,
-  where,
-  getDocs,
   query,
   orderBy,
+  doc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
 } from 'firebase/firestore';
 
 import {
@@ -63,6 +65,24 @@ export const addANewPost = (customer, postUser, uidUser) => {
 };
 export const printPost = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('today', 'desc')), callback);
 
+// Función que añadir likes de un usuario
+export const addLikes = (localId, uidUser) => {
+  const likes = doc(db, 'posts', localId);
+
+  updateDoc(likes, {
+    likes: arrayUnion(uidUser),
+  });
+};
+
+// Función que eliminar likes de un usuario
+export const removeLikes = (localId, uidUser) => {
+  const likes = doc(db, 'posts', localId);
+
+  updateDoc(likes, {
+    likes: arrayRemove(uidUser),
+  });
+};
+
 // Función para llamar a los post de un usuario
 // const q = query(collection(db, user), where(user, '==', true));
 // export const querySnapshot = await getDocs(q);
@@ -82,10 +102,6 @@ export const printPost = (callback) => onSnapshot(query(collection(db, 'posts'),
 // }
 // writePost();
 
-
-
-
-
 // esta era una prueba para guardar tareas
 // export const saveTask = (description, userName, uidUser) => {
 //   const today = new Date();
@@ -98,9 +114,6 @@ export const printPost = (callback) => onSnapshot(query(collection(db, 'posts'),
 //     like: [],
 //   });
 // };
-
-
-
 // ---------------------Observador----------
 // export function watcher() {
 //   onAuthStateChanged(auth, (user) => {
