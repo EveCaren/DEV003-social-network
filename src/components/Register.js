@@ -1,6 +1,6 @@
 import Toastify from 'toastify-js';
-import { getAuth, updateProfile } from 'firebase/auth';
-import { registerEvent } from '../lib/fireFunction.js';
+import { getAuth } from 'firebase/auth';
+import { registerEvent, updateInfo } from '../lib/fireFunction.js';
 // import { onNavigate } from '../router.js';
 
 export const register = (onNavigate) => {
@@ -111,13 +111,15 @@ export const register = (onNavigate) => {
           const user = userCredential.user;
           // para guardar el nombre del usuario
           const auth = getAuth();
-          updateProfile(auth.currentUser, {
+          updateInfo(auth.currentUser, {
             displayName: userValue,
           });
           console.log(user);
-          onNavigate('/');
+        })
+        .then((user)=> {
+          onNavigate('/muro');
           Toastify({
-            text: '¡Bienvenido a PETGRAM! Ya puedes iniciar sesión',
+            text: '¡Bienvenido a PETGRAM! Ya puedes comenzar a interactuar',
             duration: 5000,
             style: {
               background: 'linear-gradient(to right, #00b09b, #96c93d)',

@@ -1,5 +1,6 @@
+import { onSnapshot } from 'firebase/firestore';
 import {
-  addANewPost, printPost, stateLogin, removeLikes, addLikes,
+  addANewPost, printPost, stateLogin, addLikes, removeLikes
 
 } from '../lib/fireFunction.js';
 
@@ -13,6 +14,8 @@ stateLogin((user) => {
 });
 
 export const muro = () => {
+  const localId = snapshot.val;
+  console.log(localId);
   // maquetación del muro
   const HomeDivMuro = document.createElement('div');
   const logoDiv = document.createElement('div');
@@ -72,7 +75,7 @@ export const muro = () => {
       <p class = 'customer'>${docData.customer}</p>
       <p class = 'postUser'>${docData.postUser}</p>
        <div class = 'likeDiv'>
-       <button class = 'btnLike'>
+       <button class = 'btnLike' id=${docData.uidUser}>
        <img src='img/mascotas.png' alt='logolike'>
        </button>
         <p class = 'numLike'>${0}</p>
@@ -90,13 +93,15 @@ export const muro = () => {
 
   // Función para añadir y quitar likes
   function eventLikes() {
-    const btnLike = document.querySelector('btnLike');
+    const btnLike = document.querySelectorAll('.btnLike');
     btnLike.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        
+        addLikes(localId, userIdMuro);
+      });
     });
-  });
+  }
+  eventLikes();
 
   // Función del boton publicar
   buttonPublish.addEventListener('click', (e) => {

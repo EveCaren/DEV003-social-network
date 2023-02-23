@@ -19,6 +19,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
+  updateProfile,
 } from 'firebase/auth';
 
 import { firebaseConfig } from './firebaseConfig.js';
@@ -75,13 +76,16 @@ export const addLikes = (localId, uidUser) => {
 };
 
 // Función que eliminar likes de un usuario
-export const removeLikes = (localId, uidUser) => {
+export const removeLikes = (uidUser, localId) => {
   const likes = doc(db, 'posts', localId);
 
   updateDoc(likes, {
     likes: arrayRemove(uidUser),
   });
 };
+
+// Función para actualizar datos
+export const updateInfo = (authuser, displayName) => updateProfile(auth.currentUser, displayName);
 
 // Función para llamar a los post de un usuario
 // const q = query(collection(db, user), where(user, '==', true));
