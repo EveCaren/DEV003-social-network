@@ -1,6 +1,5 @@
-import { onSnapshot } from 'firebase/firestore';
 import {
-  addANewPost, printPost, stateLogin, addLikes
+  addANewPost, printPost, stateLogin, addLikes, removeLikes, getLikes, deletePost, editPost,
 } from '../lib/fireFunction.js';
 
 let userMuro = '';
@@ -10,6 +9,7 @@ stateLogin((user) => {
   console.log('stateLogin', user);
   userMuro = user.displayName;
   userIdMuro = user.uid;
+  console.log(userIdMuro);
 });
 
 export const muro = () => {
@@ -62,45 +62,6 @@ export const muro = () => {
 
   write.placeholder = '¿En qué estás pensando?';
 
-  // enlistar posts
-  printPost((querySnapshot) => {
-    let contentPost = '';
-    console.log(querySnapshot);
-    querySnapshot.forEach((doc) => {
-      const docData = doc.data();
-      console.log(docData);
-
-      contentPost += `<div class = 'cardPost' id = 'cardPost'> 
-      <p class = 'customer'>${docData.customer}</p>
-      <p class = 'postUser' id= ${docData.id}>${docData.postUser}</p>
-       <div class = 'likeDiv'>
-       <button class = 'btnLike' id=${docData.uidUser}>
-       <img src='img/mascotas.png' alt='logolike'>
-       </button>
-        <p class = 'numLike'>${0}</p>
-        <button class = 'btnEdit'>
-        <img src='img/lapiz.png' alt='logolike'>
-        </button>
-        <button class = 'btnDelete'>
-        <img src='img/eliminar.png' alt='logolike'>
-        </button>
-       </div>
-      </div>`;
-    });
-    postMuro.innerHTML = contentPost;
-  });
-
-  // Función para añadir y quitar likes
-  function eventLikes() {
-    const btnLike = document.querySelectorAll('.btnLike');
-    btnLike.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        addLikes(Id, userIdMuro);
-      });
-    });
-  }
-  eventLikes();
-
   // Función del boton publicar
   buttonPublish.addEventListener('click', (e) => {
     e.preventDefault();
@@ -111,8 +72,81 @@ export const muro = () => {
     } else {
       alert('No has escrito nada, revisa por favor');
     }
-    // función para agregar datos
   });
+
+  // enlistar posts
+  printPost((querySnapshot) => {
+    let contentPost = '';
+    console.log(querySnapshot);
+    querySnapshot.forEach((doc) => {
+      const docData = doc.data();
+      // console.log(docData);
+
+      contentPost += `<div class = 'cardPost' id = 'cardPost'> 
+      <p class = 'customer'>${docData.customer}</p>
+      <p class = 'postUser' id= ${doc.id}>${docData.postUser}</p>
+       <div class = 'likeDiv'>
+       <button class = 'btnLike' id=${doc.id}>
+       <img src='img/mascotas.png' alt='logolike'>
+       </button>
+        <p class = 'numLike'>${docData.like.length}</p>
+        <button class = 'btnEdit' id=${doc.id}>
+        <img src='img/lapiz.png' alt='logolike'>
+        </button>
+        <button class = 'btnDelete' id=${doc.id}>
+        <img src='img/eliminar.png' alt='logolike'>
+        </button>
+       </div>
+      </div>`;
+    });
+    postMuro.innerHTML = contentPost;
+    eventLikes();
+    eventDelete();
+    //eventEdit();
+  });
+
+  // Función para añadir y quitar like
+  function eventLikes() {
+    const BtnLike = postMuro.querySelectorAll('.btnLike');
+    // console.log(BtnLike);
+    BtnLike.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        getLikes(btn.id).then((dbLike) => {
+          const firstPost = dbLike.data();
+          const userLikes = firstPost.like;
+          if (userLikes.includes(userIdMuro)) {
+            removeLikes(btn.id, userIdMuro);
+          } else {
+            addLikes(btn.id, userIdMuro);
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
+      });
+    });
+  }
+
+  // Función para eliminar posts
+  function eventDelete() {
+    const BtnDelete = postMuro.querySelectorAll('.btnDelete');
+    BtnDelete.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const question = confirm('¿Desea eliminar este post?');
+        if (question === true) {
+          deletePost(btn.id);
+        }
+      });
+    });
+  }
+  // Función para editar posts
+  // function eventEdit() {
+  //   const BtnEdit = postMuro.querySelectorAll('.btnEdit');
+  //   BtnEdit.forEach((btn) => {
+  //     btn.addEventListener('click', () => {
+  //       editPost().then
+  //     });
+  //   });
+  // }
 
   logoDiv.append(logo, title);
   formMuro.append(write, buttonPublish);
