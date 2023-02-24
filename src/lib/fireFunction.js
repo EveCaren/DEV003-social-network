@@ -7,9 +7,11 @@ import {
   query,
   orderBy,
   doc,
-  updateDoc,
   arrayUnion,
   arrayRemove,
+  getDoc,
+  deleteDoc,
+  updateDoc,
 } from 'firebase/firestore';
 
 import {
@@ -66,32 +68,31 @@ export const addANewPost = (customer, postUser, uidUser) => {
 };
 export const printPost = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('today', 'desc')), callback);
 
+// Esta función la hicimos para poder acceder a los likes
+export const getLikes = (id) => getDoc(doc(db, 'posts', id));
+
 // Función que añadir likes de un usuario
 export const addLikes = (docId, uidUser) => {
   updateDoc(doc(db, 'posts', docId), {
-    likes: arrayUnion(uidUser),
+    like: arrayUnion(uidUser),
   });
 };
 
 // Función que eliminar likes de un usuario
-// export const removeLikes = (uidUser, localId) => {
-//   const likes = doc(db, 'posts', localId);
-
-//   updateDoc(likes, {
-//     likes: arrayRemove(uidUser),
-//   });
-// };
+export const removeLikes = (docId, uidUser) => {
+  updateDoc(doc(db, 'posts', docId), {
+    like: arrayRemove(uidUser),
+  });
+};
 
 // Función para actualizar datos
 export const updateInfo = (displayName) => updateProfile(auth.currentUser, displayName);
 
-// Función para llamar a los post de un usuario
-// const q = query(collection(db, user), where(user, '==', true));
-// export const querySnapshot = await getDocs(q);
-// querySnapshot.forEach((doc) => {
-//   // doc.data() is never undefined for query doc snapshots
-//   console.log(doc.id, " => ", doc.data());
-// });
+// Función para eliminar post
+export const deletePost = (docId) => deleteDoc(doc(db, 'posts', docId));
+
+// Función para editar post
+export const editPost = (docId, postUser) => updateDoc(doc(db, 'posts', docId), { postUser });
 
 // Este posiblemente nos sirva para editar posts
 // const post = doc(db, 'postUser/post');
