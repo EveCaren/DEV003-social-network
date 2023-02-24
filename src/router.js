@@ -26,7 +26,7 @@ export const onNavigate = (pathname) => {
     root.removeChild(root.firstChild);
   }
 
-  root.appendChild(routes[pathname]()); // "()"para que se ejecute
+  root.appendChild(routes[pathname](onNavigate)); // "()"para que se ejecute
 };
 
 const component = routes[window.location.pathname];

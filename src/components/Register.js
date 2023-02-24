@@ -1,9 +1,9 @@
 import Toastify from 'toastify-js';
 import { getAuth } from 'firebase/auth';
 import { registerEvent, updateInfo } from '../lib/fireFunction.js';
-// import { onNavigate } from '../router.js';
 
 export const register = (onNavigate) => {
+  console.log('que valor tiene onNavvigate', onNavigate)
   // estructuración
   const HomeDivReg = document.createElement('div');
   const logoDiv = document.createElement('div');
@@ -109,14 +109,13 @@ export const register = (onNavigate) => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          console.log('register', user);
           // para guardar el nombre del usuario
-          const auth = getAuth();
-          updateInfo(auth.currentUser, {
+          return updateInfo({
             displayName: userValue,
           });
-          console.log(user);
         })
-        .then((user)=> {
+        .then(() => {
           onNavigate('/muro');
           Toastify({
             text: '¡Bienvenido a PETGRAM! Ya puedes comenzar a interactuar',
@@ -156,41 +155,41 @@ export const register = (onNavigate) => {
             }
           }
         });
-    }
+}
   });
 
-  // buttonGmail.addEventListener('click', () => {
-  //   registerGoogle().then((result) => {
-  //     // This gives you a Google Access Token. You can use it to access the Google API.
-  //     const credential = GoogleAuthProvider.credentialFromResult(result);
-  //     const token = credential.accessToken;
-  //     // The signed-in user info.
-  //     const user = result.user;
-  //     // console.log(user);
-  //     // IdP data available using getAdditionalUserInfo(result)
-  //     onNavigate('/muro');
-  //   // }).catch((error) => {
-  //   //   // Handle Errors here.
-  //   //   const errorCode = error.code;
-  //   //   const errorMessage = error.message;
-  //   //   // The email of the user's account used.
-  //   //   const email = error.customData.email;
-  //   //   // The AuthCredential type that was used.
-  //   //   const credential = GoogleAuthProvider.credentialFromError(error);
-  //   //   // ...
-  //   });
-  // });
+// buttonGmail.addEventListener('click', () => {
+//   registerGoogle().then((result) => {
+//     // This gives you a Google Access Token. You can use it to access the Google API.
+//     const credential = GoogleAuthProvider.credentialFromResult(result);
+//     const token = credential.accessToken;
+//     // The signed-in user info.
+//     const user = result.user;
+//     // console.log(user);
+//     // IdP data available using getAdditionalUserInfo(result)
+//     onNavigate('/muro');
+//   // }).catch((error) => {
+//   //   // Handle Errors here.
+//   //   const errorCode = error.code;
+//   //   const errorMessage = error.message;
+//   //   // The email of the user's account used.
+//   //   const email = error.customData.email;
+//   //   // The AuthCredential type that was used.
+//   //   const credential = GoogleAuthProvider.credentialFromError(error);
+//   //   // ...
+//   });
+// });
 
-  logoDiv.append(logo, title, welcome);
-  btnDiv.appendChild(buttonCreate);
-  form.append(labelUser, inputUser, divError, labelEmail, inputEmail);
-  form.append(labelPass, inputPass, btnDiv);
-  containerRegister.append(form);
-  buttonGmail.appendChild(iconGoogle);
-  gmailDiv.appendChild(buttonGmail);
-  containerAll.append(RegTitle, containerRegister, gmailDiv);
-  HomeDivReg.append(logoDiv, containerAll);
-  return HomeDivReg;
+logoDiv.append(logo, title, welcome);
+btnDiv.appendChild(buttonCreate);
+form.append(labelUser, inputUser, divError, labelEmail, inputEmail);
+form.append(labelPass, inputPass, btnDiv);
+containerRegister.append(form);
+buttonGmail.appendChild(iconGoogle);
+gmailDiv.appendChild(buttonGmail);
+containerAll.append(RegTitle, containerRegister, gmailDiv);
+HomeDivReg.append(logoDiv, containerAll);
+return HomeDivReg;
 };
 
 /* optiones sexo y fecha de nac.

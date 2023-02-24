@@ -67,25 +67,23 @@ export const addANewPost = (customer, postUser, uidUser) => {
 export const printPost = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('today', 'desc')), callback);
 
 // Función que añadir likes de un usuario
-export const addLikes = (localId, uidUser) => {
-  const likes = doc(db, 'posts', localId);
-
-  updateDoc(likes, {
+export const addLikes = (docId, uidUser) => {
+  updateDoc(doc(db, 'posts', docId), {
     likes: arrayUnion(uidUser),
   });
 };
 
 // Función que eliminar likes de un usuario
-export const removeLikes = (uidUser, localId) => {
-  const likes = doc(db, 'posts', localId);
+// export const removeLikes = (uidUser, localId) => {
+//   const likes = doc(db, 'posts', localId);
 
-  updateDoc(likes, {
-    likes: arrayRemove(uidUser),
-  });
-};
+//   updateDoc(likes, {
+//     likes: arrayRemove(uidUser),
+//   });
+// };
 
 // Función para actualizar datos
-export const updateInfo = (authuser, displayName) => updateProfile(auth.currentUser, displayName);
+export const updateInfo = (displayName) => updateProfile(auth.currentUser, displayName);
 
 // Función para llamar a los post de un usuario
 // const q = query(collection(db, user), where(user, '==', true));

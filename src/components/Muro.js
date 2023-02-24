@@ -1,21 +1,20 @@
 import { onSnapshot } from 'firebase/firestore';
 import {
-  addANewPost, printPost, stateLogin, addLikes, removeLikes
-
+  addANewPost, printPost, stateLogin, addLikes
 } from '../lib/fireFunction.js';
 
 let userMuro = '';
 let userIdMuro = '';
 
 stateLogin((user) => {
-  console.log(user);
+  console.log('stateLogin', user);
   userMuro = user.displayName;
   userIdMuro = user.uid;
 });
 
 export const muro = () => {
-  const localId = snapshot.val;
-  console.log(localId);
+  // const localId = ;
+  // console.log(localId);
   // maquetación del muro
   const HomeDivMuro = document.createElement('div');
   const logoDiv = document.createElement('div');
@@ -73,7 +72,7 @@ export const muro = () => {
 
       contentPost += `<div class = 'cardPost' id = 'cardPost'> 
       <p class = 'customer'>${docData.customer}</p>
-      <p class = 'postUser'>${docData.postUser}</p>
+      <p class = 'postUser' id= ${docData.id}>${docData.postUser}</p>
        <div class = 'likeDiv'>
        <button class = 'btnLike' id=${docData.uidUser}>
        <img src='img/mascotas.png' alt='logolike'>
@@ -95,9 +94,8 @@ export const muro = () => {
   function eventLikes() {
     const btnLike = document.querySelectorAll('.btnLike');
     btnLike.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        addLikes(localId, userIdMuro);
+      btn.addEventListener('click', () => {
+        addLikes(Id, userIdMuro);
       });
     });
   }
