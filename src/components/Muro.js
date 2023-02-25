@@ -1,5 +1,5 @@
 import {
-  addANewPost, printPost, stateLogin, addLikes, removeLikes, getLikes, deletePost, editPost,
+  addANewPost, printPost, stateLogin, addLikes, removeLikes, getLikes, deletePost, currentUserInfo,
 } from '../lib/fireFunction.js';
 
 let userMuro = '';
@@ -80,7 +80,11 @@ export const muro = () => {
     console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
       const docData = doc.data();
-      // console.log(docData);
+      console.log(docData);
+      console.log('currentUserInfo', currentUserInfo());
+
+      const loggedUserId = currentUserInfo().uid;
+      const isAuthor = docData.uidUser === loggedUserId;
 
       contentPost += `<div class = 'cardPost' id = 'cardPost'> 
       <p class = 'customer'>${docData.customer}</p>
@@ -90,19 +94,19 @@ export const muro = () => {
        <img src='img/mascotas.png' alt='logolike'>
        </button>
         <p class = 'numLike'>${docData.like.length}</p>
-        <button class = 'btnEdit' id=${doc.id}>
+        ${isAuthor ? `<button class = 'btnEdit' id=${doc.id}>
         <img src='img/lapiz.png' alt='logolike'>
         </button>
         <button class = 'btnDelete' id=${doc.id}>
         <img src='img/eliminar.png' alt='logolike'>
-        </button>
+        </button>` : ''}
        </div>
       </div>`;
     });
     postMuro.innerHTML = contentPost;
     eventLikes();
     eventDelete();
-    //eventEdit();
+    // eventEdit();
   });
 
   // Función para añadir y quitar like
