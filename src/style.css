@@ -185,7 +185,7 @@ body{
     margin: 0% 0% 3% 0%;
 
 }
-.buttonPublish{
+.buttonPublish, .buttonEdit, .buttonEdCancel{
     border-radius: 0.5rem;
     background-color: #f2a71b;
     font-size: 0.9rem;
@@ -198,6 +198,10 @@ body{
     /* align-content: center; */
     margin-left: 70%; 
 }
+.buttonEdit, .buttonEdCancel {
+    display: none;
+}
+
 .buttonHome, .buttonProfile{
     width: 50px;
     height: 50px;

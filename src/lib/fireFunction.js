@@ -94,6 +94,8 @@ export const deletePost = (docId) => deleteDoc(doc(db, 'posts', docId));
 // Función para editar post
 export const editPost = (docId, postUser) => updateDoc(doc(db, 'posts', docId), { postUser });
 
+export const getPost = (docId) => getDoc(doc(db, 'posts', docId));
+
 // Este posiblemente nos sirva para editar posts
 // const post = doc(db, 'postUser/post');
 // function writePost() {
@@ -105,18 +107,7 @@ export const editPost = (docId, postUser) => updateDoc(doc(db, 'posts', docId), 
 // }
 // writePost();
 
-// esta era una prueba para guardar tareas
-// export const saveTask = (description, userName, uidUser) => {
-//   const today = new Date();
 
-//   return addDoc(collection(db, 'tasks'), {
-//     uidUser,
-//     userName,
-//     description,
-//     date: today,
-//     like: [],
-//   });
-// };
 // ---------------------Observador----------
 // export function watcher() {
 //   onAuthStateChanged(auth, (user) => {
