@@ -43,7 +43,7 @@ export const home = (onNavigate) => {
   inputEmail.setAttribute('class', 'inputs');
   inputEmail.placeholder = 'xxxxxxxx@gmail.com';
   const inputPass = document.createElement('input');
-  inputPass.setAttribute('type', 'text');
+  inputPass.setAttribute('type', 'password');
   inputPass.setAttribute('class', 'inputs');
   inputPass.placeholder = 'xxxxxxxx';
   // Botones

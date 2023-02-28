@@ -1,3 +1,4 @@
+
 body{
     background-color: #f2f2f2;
 }
@@ -288,15 +289,22 @@ body{
     padding: 0% 5%;
 }
 .customer{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.3rem;
+    font-family: 'Itim', cursive;
+    font-size: 1.4rem;
     font-weight: bold;
     color: #122e40;
     padding-left: 5%;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 
 }
 
+.date{
+    display: flex;
+    font-size: 1rem;
+    color: #122e40;
+    justify-content: flex-end;
+    padding: 0 2%;
+}
 
 /* *---------TABLET------------ más de 768 px*/
 @media only screen and (min-width: 768px) and (max-width:1023px) {
@@ -485,6 +493,8 @@ body{
         width: 45px;
         height: 45px;
     }
+
+    
     .footerCont{
         height: fit-content;
     }  
