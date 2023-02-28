@@ -10,6 +10,7 @@ import {
   currentUserInfo,
   editPost,
   getPost,
+  logOut,
 } from '../lib/fireFunction.js';
 
 let userMuro = '';
@@ -22,7 +23,7 @@ stateLogin((user) => {
   console.log(userIdMuro);
 });
 
-export const muro = () => {
+export const muro = (onNavigate) => {
   // const localId = ;
   // console.log(localId);
   // maquetación del muro
@@ -41,9 +42,11 @@ export const muro = () => {
   const logoProfile = document.createElement('img');
   const buttonHome = document.createElement('button');
   const logoButton = document.createElement('img');
+  const buttonLogOut = document.createElement('button');
+  const logoOut = document.createElement('img');
   const publishDiv = document.createElement('div');
   const buttonPublish = document.createElement('button');
-  const buttonEdit = document.createElement('button');
+  const buttonUpdate = document.createElement('button');
   const buttonEdCancel = document.createElement('button');
   const footerCont = document.createElement('footer');
 
@@ -61,7 +64,7 @@ export const muro = () => {
   likeDiv.setAttribute('class', 'likeDiv');
   publishDiv.setAttribute('class', 'publishDiv');
   buttonPublish.setAttribute('class', 'buttonPublish');
-  buttonEdit.setAttribute('class', 'buttonEdit');
+  buttonUpdate.setAttribute('class', 'buttonUpdate');
   buttonEdCancel.setAttribute('class', 'buttonEdCancel');
   buttonHome.setAttribute('class', 'buttonHome');
   logoButton.setAttribute('src', '/img/pet-love.png');
@@ -69,13 +72,17 @@ export const muro = () => {
   buttonProfile.setAttribute('class', 'buttonProfile');
   logoProfile.setAttribute('src', '/img/Max.jpeg');
   logoProfile.setAttribute('alt', 'logoAlt');
+  buttonLogOut.setAttribute('class', 'buttonLogOut');
+  logoOut.setAttribute('src', '/img/logOut.png');
+  logoOut.setAttribute('alt', 'logoAlt');
   footerCont.setAttribute('class', 'footerCont');
 
   title.textContent = 'PETGRAM';
   buttonPublish.textContent = 'Publicar';
-  buttonEdit.textContent = 'Actualizar';
+  buttonUpdate.textContent = 'Actualizar';
   buttonEdCancel.textContent = 'Cancelar';
   write.placeholder = '¿En qué estás pensando?';
+  buttonLogOut.textContent = 'LogOut';
 
   // Función del boton publicar
   buttonPublish.addEventListener('click', (e) => {
@@ -158,6 +165,7 @@ export const muro = () => {
     });
   }
   // Función para editar posts
+  // Toma el post y lo devuelve en el input para ser editado
   function eventEdit() {
     const BtnEdit = postMuro.querySelectorAll('.btnEdit');
     const contentPostInput = formMuro.querySelector('.write');
@@ -171,41 +179,51 @@ export const muro = () => {
         console.log (postGet.data());
         taskPost = postGet.data();
         contentPostInput.value = taskPost.postUser;
-        buttonEdit.style.display = 'block';
+        buttonUpdate.style.display = 'block';
         buttonEdCancel.style.display = 'block';
         buttonPublish.style.display = 'none';
       });
     });
-    const BtnUpdate = formMuro.querySelector('.buttonEdit');
+    // Actualiza la nueva edición del post
+    const BtnUpdate = formMuro.querySelector('.buttonUpdate');
     BtnUpdate.addEventListener('click', async (e) => {
       e.preventDefault();
       console.log('taskPost', taskPost);
+      // const btnIdUp = BtnUpdate.id;
+      console.log(btnIdPost);
       editPost(btnIdPost, contentPostInput.value);
-      buttonEdit.style.display = 'none';
+      buttonUpdate.style.display = 'none';
       buttonEdCancel.style.display = 'none';
       buttonPublish.style.display = 'block';
       contentPostInput.value = '';
     });
-    const BtnCancel= formMuro.querySelector('.buttonEdCancel');
+    // Da funcionalidad al botón cancelar
+    const BtnCancel = formMuro.querySelector('.buttonEdCancel');
     BtnCancel.addEventListener('click', async (e) => {
       e.preventDefault();
-      buttonEdit.style.display = 'none';
+      buttonUpdate.style.display = 'none';
       buttonEdCancel.style.display = 'none';
       buttonPublish.style.display = 'block';
       contentPostInput.value = '';
     });
   }
-
-
+  // función cerrar sesión
+  buttonLogOut.addEventListener('click', (e) => {
+    e.preventDefault();
+    logOut().then(() => {
+      onNavigate('/');
+    });
+  });
 
   logoDiv.append(logo, title);
-  formMuro.append(write, buttonPublish, buttonEdit, buttonEdCancel);
+  formMuro.append(write, buttonPublish, buttonUpdate, buttonEdCancel);
   publishDiv.appendChild(formMuro);
   writeMuro.append(publishDiv);
   divContainer.append(writeMuro, postMuro);
-  footerCont.append(buttonHome, buttonProfile);
+  buttonLogOut.appendChild(logoOut);
   buttonHome.appendChild(logoButton);
   buttonProfile.appendChild(logoProfile);
+  footerCont.append(buttonLogOut, buttonHome, buttonProfile);
   postMuro.appendChild(likeDiv);
   likeDiv.appendChild(post);
   HomeDivMuro.append(logoDiv, divContainer, footerCont);

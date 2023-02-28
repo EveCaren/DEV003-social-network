@@ -22,6 +22,7 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   updateProfile,
+  signOut,
 } from 'firebase/auth';
 
 import { firebaseConfig } from './firebaseConfig.js';
@@ -96,34 +97,5 @@ export const editPost = (docId, postUser) => updateDoc(doc(db, 'posts', docId), 
 
 export const getPost = (docId) => getDoc(doc(db, 'posts', docId));
 
-// Este posiblemente nos sirva para editar posts
-// const post = doc(db, 'postUser/post');
-// function writePost() {
-//   const docData = {
-//     user: 'tako',
-//     Post: 'comentario2',
-//   };
-//   setDoc(post, docData, { merge: true });
-// }
-// writePost();
-
-
-// ---------------------Observador----------
-// export function watcher() {
-//   onAuthStateChanged(auth, (user) => {
-//     if (user !== null) {
-//       const uid = user.uid;
-//       // User is signed in, see docs for a list of available properties
-//       user.providerData.forEach((profile) => {
-//         console.log(`Sign-in provider: ${profile.providerId}`);
-//         console.log(`  Provider-specific UID: ${profile.uid}`);
-//         console.log(`  Name: ${profile.displayName}`);
-//         console.log(`  Email: ${profile.email}`);
-//         console.log(`  Photo URL: ${profile.photoURL}`);
-//       });
-//     } else {
-//       // User is signed out se ejecuta cuando el usuario se desloguea
-//       console.log('no hay usuario');
-//     }
-//   });
-// }
+// Función para cerrar sesión
+export const logOut = () => signOut(auth);
