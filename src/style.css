@@ -198,7 +198,7 @@ body{
     /* align-content: center; */
     margin-left: 70%; 
 }
-.buttonEdit, .buttonEdCancel {
+.buttonUpdate, .buttonEdCancel {
     display: none;
 }
 
@@ -223,8 +223,8 @@ body{
     border-radius: 50%;
 }
 .buttonLogOut> img{
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
 }
 .footerCont{
@@ -299,7 +299,7 @@ body{
 
 
 /* *---------TABLET------------ más de 768 px*/
-@media only screen and (min-width: 768px) and (max-width:1279px) {
+@media only screen and (min-width: 768px) and (max-width:1023px) {
     
     .containerLogin{
         display: flex;
@@ -352,10 +352,33 @@ body{
     justify-content: flex-end;
     position: absolute;
     bottom: 0;
-} 
 }
-/* ----------DESKTOP----------- más de 1280 px*/
-@media only screen and (min-width: 1280px) and (max-width: 1728px){
+.buttonHome, .buttonProfile, .buttonLogOut{
+    width: 70px;
+    height: 70px;
+    
+}
+
+.buttonHome > img{
+    width: 45px;
+    height: 45px;
+    
+}
+.buttonProfile> img{
+    width: 50px;
+    height: 50px;
+}
+.buttonLogOut> img{
+    width: 45px;
+    height: 45px;
+}
+.footerCont{
+    height: fit-content;
+    position: absolute;
+}  
+}
+/* ----------DESKTOP----------- más de 1024 px*/
+@media only screen and (min-width: 1024px) and (max-width: 1728px){
     .HomeDiv{
         display: flex;
         flex-wrap: nowrap; 
@@ -442,8 +465,27 @@ body{
         padding-left: 5%;
     
     }
-    .footerCont{
-       position: fixed;
-       /* flex-direction: column; */
+    
+    .buttonHome, .buttonProfile, .buttonLogOut{
+        width: 95px;
+        height: 95px;
+        
     }
+
+    .buttonHome > img{
+        width: 45px;
+        height: 45px;
+        
+    }
+    .buttonProfile> img{
+        width: 50px;
+        height: 50px;
+    }
+    .buttonLogOut> img{
+        width: 45px;
+        height: 45px;
+    }
+    .footerCont{
+        height: fit-content;
+    }  
 }

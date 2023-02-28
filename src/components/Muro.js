@@ -82,7 +82,7 @@ export const muro = (onNavigate) => {
   buttonUpdate.textContent = 'Actualizar';
   buttonEdCancel.textContent = 'Cancelar';
   write.placeholder = '¿En qué estás pensando?';
-  buttonLogOut.textContent = 'LogOut';
+  buttonLogOut.textContent = 'Out';
 
   // Función del boton publicar
   buttonPublish.addEventListener('click', (e) => {
