@@ -81,7 +81,7 @@ export const muro = (onNavigate) => {
   buttonPublish.textContent = 'Publicar';
   buttonUpdate.textContent = 'Actualizar';
   buttonEdCancel.textContent = 'Cancelar';
-  write.placeholder = '¿En qué estás pensando?';
+  write.placeholder = '¿En qué estás pensando? 🐾 ';
   buttonLogOut.textContent = 'Out';
 
   // Función del boton publicar
@@ -92,7 +92,7 @@ export const muro = (onNavigate) => {
       addANewPost(userMuro, postValue, userIdMuro);
       formMuro.reset();
     } else {
-      alert('No has escrito nada, revisa por favor');
+      alert('No has escrito nada, revisa por favor 😿');
     }
   });
 
@@ -102,6 +102,14 @@ export const muro = (onNavigate) => {
     console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
       const docData = doc.data();
+      const postDate = docData.today.toDate();
+      const formDate = postDate.toLocaleDateString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
       console.log(docData);
       console.log('currentUserInfo', currentUserInfo());
 
@@ -109,6 +117,7 @@ export const muro = (onNavigate) => {
       const isAuthor = docData.uidUser === loggedUserId;
 
       contentPost += `<div class = 'cardPost' id = 'cardPost'> 
+      <p class = 'date'>${formDate}</p>
       <p class = 'customer'>${docData.customer}</p>
       <p class = 'postUser' id= ${doc.id}>${docData.postUser}</p>
        <div class = 'likeDiv'>
@@ -129,6 +138,8 @@ export const muro = (onNavigate) => {
     eventLikes();
     eventDelete();
     eventEdit();
+    update();
+    cancel();
   });
 
   // Función para añadir y quitar like
@@ -165,18 +176,19 @@ export const muro = (onNavigate) => {
     });
   }
   // Función para editar posts
+  // Variables globales para editar,actualizar y cancelar posts
   // Toma el post y lo devuelve en el input para ser editado
+  let taskPost;
+  let postGet;
+  let btnIdPost;
   function eventEdit() {
     const BtnEdit = postMuro.querySelectorAll('.btnEdit');
     const contentPostInput = formMuro.querySelector('.write');
-    let taskPost;
-    let postGet;
-    let btnIdPost;
     BtnEdit.forEach((btn) => {
       btn.addEventListener('click', async () => {
         btnIdPost = btn.id;
         postGet = await getPost(btn.id);
-        console.log (postGet.data());
+        console.log(postGet.data());
         taskPost = postGet.data();
         contentPostInput.value = taskPost.postUser;
         buttonUpdate.style.display = 'block';
@@ -184,22 +196,31 @@ export const muro = (onNavigate) => {
         buttonPublish.style.display = 'none';
       });
     });
-    // Actualiza la nueva edición del post
+  }
+
+  // Actualiza la nueva edición del post
+
+  function update() {
     const BtnUpdate = formMuro.querySelector('.buttonUpdate');
-    BtnUpdate.addEventListener('click', async (e) => {
+    const contentPostInput = formMuro.querySelector('.write');
+    BtnUpdate.addEventListener('click', (e) => {
       e.preventDefault();
       console.log('taskPost', taskPost);
-      // const btnIdUp = BtnUpdate.id;
       console.log(btnIdPost);
-      editPost(btnIdPost, contentPostInput.value);
-      buttonUpdate.style.display = 'none';
-      buttonEdCancel.style.display = 'none';
-      buttonPublish.style.display = 'block';
-      contentPostInput.value = '';
+      editPost(btnIdPost, contentPostInput.value).then(() => {
+        buttonUpdate.style.display = 'none';
+        buttonEdCancel.style.display = 'none';
+        buttonPublish.style.display = 'block';
+        contentPostInput.value = '';
+      });
+      // window.location.reload();
     });
-    // Da funcionalidad al botón cancelar
+  }
+  // Da funcionalidad al botón cancelar
+  function cancel() {
     const BtnCancel = formMuro.querySelector('.buttonEdCancel');
-    BtnCancel.addEventListener('click', async (e) => {
+    const contentPostInput = formMuro.querySelector('.write');
+    BtnCancel.addEventListener('click', (e) => {
       e.preventDefault();
       buttonUpdate.style.display = 'none';
       buttonEdCancel.style.display = 'none';

@@ -12,6 +12,7 @@ import {
   getDoc,
   deleteDoc,
   updateDoc,
+  serverTimestamp,
 } from 'firebase/firestore';
 
 import {
@@ -57,16 +58,13 @@ export const currentUserInfo = () => auth.currentUser;
 // -----------------Firestore----------------------
 // Función que guarda los post de un usuario
 const db = getFirestore(app);
-export const addANewPost = (customer, postUser, uidUser) => {
-  const today = new Date();
-  return addDoc(collection(db, 'posts'), {
-    customer,
-    postUser,
-    uidUser,
-    today,
-    like: [],
-  });
-};
+export const addANewPost = (customer, postUser, uidUser) => addDoc(collection(db, 'posts'), {
+  customer,
+  postUser,
+  uidUser,
+  today: serverTimestamp(),
+  like: [],
+});
 export const printPost = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('today', 'desc')), callback);
 
 // Esta función la hicimos para poder acceder a los likes
