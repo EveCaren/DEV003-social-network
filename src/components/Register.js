@@ -1,9 +1,8 @@
 import Toastify from 'toastify-js';
-import { getAuth } from 'firebase/auth';
 import { registerEvent, updateInfo } from '../lib/fireFunction.js';
 
 export const register = (onNavigate) => {
-  console.log('que valor tiene onNavvigate', onNavigate)
+  console.log('que valor tiene onNavvigate', onNavigate);
   // estructuración
   const HomeDivReg = document.createElement('div');
   const logoDiv = document.createElement('div');
@@ -155,80 +154,17 @@ export const register = (onNavigate) => {
             }
           }
         });
-}
+    }
   });
 
-// buttonGmail.addEventListener('click', () => {
-//   registerGoogle().then((result) => {
-//     // This gives you a Google Access Token. You can use it to access the Google API.
-//     const credential = GoogleAuthProvider.credentialFromResult(result);
-//     const token = credential.accessToken;
-//     // The signed-in user info.
-//     const user = result.user;
-//     // console.log(user);
-//     // IdP data available using getAdditionalUserInfo(result)
-//     onNavigate('/muro');
-//   // }).catch((error) => {
-//   //   // Handle Errors here.
-//   //   const errorCode = error.code;
-//   //   const errorMessage = error.message;
-//   //   // The email of the user's account used.
-//   //   const email = error.customData.email;
-//   //   // The AuthCredential type that was used.
-//   //   const credential = GoogleAuthProvider.credentialFromError(error);
-//   //   // ...
-//   });
-// });
-
-logoDiv.append(logo, title, welcome);
-btnDiv.appendChild(buttonCreate);
-form.append(labelUser, inputUser, divError, labelEmail, inputEmail);
-form.append(labelPass, inputPass, btnDiv);
-containerRegister.append(form);
-buttonGmail.appendChild(iconGoogle);
-gmailDiv.appendChild(buttonGmail);
-containerAll.append(RegTitle, containerRegister, gmailDiv);
-HomeDivReg.append(logoDiv, containerAll);
-return HomeDivReg;
+  logoDiv.append(logo, title, welcome);
+  btnDiv.appendChild(buttonCreate);
+  form.append(labelUser, inputUser, divError, labelEmail, inputEmail);
+  form.append(labelPass, inputPass, btnDiv);
+  containerRegister.append(form);
+  buttonGmail.appendChild(iconGoogle);
+  gmailDiv.appendChild(buttonGmail);
+  containerAll.append(RegTitle, containerRegister, gmailDiv);
+  HomeDivReg.append(logoDiv, containerAll);
+  return HomeDivReg;
 };
-
-/* optiones sexo y fecha de nac.
-const labelDate = document.createElement('label');
-const labelSex = document.createElement('label');
-const inputDate = document.createElement('input');
-const inputSex = document.createElement('select');
-labelDate.setAttribute('class', 'labels');
-  labelSex.setAttribute('class', 'labels');
-inputDate.setAttribute('type', 'text');
-  inputDate.setAttribute('class', 'inputs');
-  inputDate.setAttribute('id', 'date');
-  inputDate.setAttribute('placeholder', 'DD / MM / AA');
-// select para el sexo
-  inputSex.setAttribute('class', 'inputs');
-  inputSex.setAttribute('id', 'sex');
-  // opción vacía
-  const optionSexEmpy = document.createElement('option');
-  optionSexEmpy.setAttribute('value', '');
-  optionSexEmpy.setAttribute('selected', 'true');
-  const textSexEmpy = document.createTextNode('seleccione');
-  optionSexEmpy.appendChild(textSexEmpy);
-  inputSex.appendChild(optionSexEmpy);
-  // opción macho
-  const optionSexM = document.createElement('option');
-  optionSexM.setAttribute('value', 'macho');
-  optionSexM.setAttribute('selected', 'true');
-  const textSexM = document.createTextNode('Macho');
-  optionSexM.appendChild(textSexM);
-  inputSex.appendChild(optionSexM);
-  // opción hembra
-  const optionSexH = document.createElement('option');
-  optionSexH.setAttribute('value', 'hembra');
-  optionSexH.setAttribute('selected', 'true');
-  const textSexH = document.createTextNode('Hembra');
-  optionSexH.appendChild(textSexH);
-  inputSex.appendChild(optionSexH);
-  // inputSex.required = 'true';
-  HomeDiv.appendChild(labelDate);
-  HomeDiv.appendChild(inputDate);
-  HomeDiv.appendChild(labelSex);
-  HomeDiv.appendChild(inputSex); */
