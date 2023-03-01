@@ -213,7 +213,6 @@ export const muro = (onNavigate) => {
         buttonPublish.style.display = 'block';
         contentPostInput.value = '';
       });
-      // window.location.reload();
     });
   }
   // Da funcionalidad al botón cancelar
