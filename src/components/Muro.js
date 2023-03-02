@@ -117,21 +117,23 @@ export const muro = (onNavigate) => {
       const isAuthor = docData.uidUser === loggedUserId;
 
       contentPost += `<div class = 'cardPost' id = 'cardPost'> 
-      <p class = 'date'>${formDate}</p>
-      <p class = 'customer'>${docData.customer}</p>
-      <p class = 'postUser' id= ${doc.id}>${docData.postUser}</p>
-       <div class = 'likeDiv'>
-       <button class = 'btnLike' id=${doc.id}>
-       <img src='img/mascotas.png' alt='logolike'>
-       </button>
-        <p class = 'numLike'>${docData.like.length}</p>
-        ${isAuthor ? `<button class = 'btnEdit' id=${doc.id}>
-        <img src='img/lapiz.png' alt='logolike'>
-        </button>
-        <button class = 'btnDelete' id=${doc.id}>
-        <img src='img/eliminar.png' alt='logolike'>
-        </button>` : ''}
-       </div>
+        <div class = 'custAndDate'>
+          <p class = 'customer'>${docData.customer}</p>
+          <p class = 'date'>${formDate}</p>
+        </div>
+        <p class = 'postUser' id= ${doc.id}>${docData.postUser}</p>
+        <div class = 'likeDiv'>
+          <button class = 'btnLike' id=${doc.id}>
+            <img src='img/mascotas.png' alt='logolike'>
+          </button>
+          <p class = 'numLike'>${docData.like.length}</p>
+          ${isAuthor ? `<button class = 'btnEdit' id=${doc.id}>
+          <img src='img/lapiz.png' alt='logolike'>
+          </button>
+          <button class = 'btnDelete' id=${doc.id}>
+          <img src='img/eliminar.png' alt='logolike'>
+          </button>` : ''}
+        </div>
       </div>`;
     });
     postMuro.innerHTML = contentPost;
