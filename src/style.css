@@ -44,7 +44,7 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 100%;
+    /* width: 100%; */
     line-height: 130%;
 }
 .containerLogin {
@@ -174,18 +174,22 @@ body{
     margin: 0% 8%;
 }
 .write{
+    font-size: medium;
     width: 100%;
     height: 20%;
     border-radius: 0.3rem; 
     padding: 6% 2%;
     margin: 10% 8%; 
 }
+.custAndDate{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .publishDiv{
-    background-color: #d9d9d9;
     width: 85%;
     height: 55%;
     margin: 0% 0% 3% 0%;
-
 }
 .buttonPublish, .buttonUpdate, .buttonEdCancel{
     border-radius: 0.5rem;
@@ -211,13 +215,10 @@ body{
     border-color: #f2a71b;
     background-color: #f2a71b;
     margin: 0% 2%;
-    
 }
-
 .buttonHome > img{
     width: 30px;
     height: 30px;
-    
 }
 .buttonProfile> img{
     width: 35px;
@@ -253,30 +254,25 @@ body{
 .likeDiv{
     display: flex ;
     justify-content: flex-end;
-    /* margin-top: 35%; */
+    align-items: center;
 }
-
-
 .btnLike, .btnEdit , .btnDelete {
-    width: 50px;
-    height: 50px;
+    width: 43px;
+    height: 43px;
     border-radius: 50%;
     border-color: #d9d9d9;
     margin: 0% 2%;
+    display: block;
+    justify-content: center;
+    align-items: center;
 }
-.btnLike > img{
-    width: 35px;
-    height: 35px;
+.btnLike > img, .btnEdit > img, .btnDelete > img{
+    width: 32px;
+    height: 32px;
 }
-.btnEdit > img{
-    width: 35px;
-    height: 35px;
+.numLike{
+    margin-right: 3%;
 }
-.btnDelete > img{
-    width: 35px;
-    height: 35px;
-}
-
 .post{
     width: fit-content;
     height: fit-content;
@@ -285,8 +281,8 @@ body{
 }
 .postUser {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: 1.2rem;
+    line-height: 1;
     padding: 0% 5%;
 }
 .customer{
@@ -294,9 +290,9 @@ body{
     font-size: 1.4rem;
     font-weight: bold;
     color: #122e40;
-    padding-left: 5%;
+    padding: 0 5%;
     letter-spacing: 1.5px;
-
+    align-items: center;
 }
 
 .date{
@@ -304,7 +300,8 @@ body{
     font-size: 1rem;
     color: #122e40;
     justify-content: flex-end;
-    padding: 0 2%;
+    align-items: center;
+    margin-right: 4%;
 }
 
 /* *---------TABLET------------ más de 768 px*/
@@ -312,18 +309,18 @@ body{
     body{
         margin: 13% 7%;
     }
-    .welcome {
+    .welcome{
         font-size: 1.7rem;
     }
-    .labels {
+    .labels{
         font-size: 1.5rem;
     }
-    .inputs { 
+    .inputs, .inputsReg{ 
         width: 20rem;
         height: 1.9rem;
         font-size:x-large;
     }
-    .containerLogin{
+    .containerLogin, .containerRegis{
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -352,35 +349,83 @@ body{
     .footer {
         font-size: 1.2rem;
     }
-    /* estilo para register.js*/
+    /* -------------estilo para register.js------------*/
     .HomeDivReg{
         width: auto;
         height: 90%;
     }
-    
+    .RegTitle {
+        font-size: 1.5rem;
+    }
     .containerAll{
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
+        /* flex-wrap: wrap;
         justify-content: center;
-        width: 50%;
+        width: 50%; */
     }
-    
+    .gmailDiv{
+        width: 100%;
+    }
     .RegTitle{
         margin-top: 5%;
     }
+    .buttonGmail {
+        font-size: 1.5rem;
+        width: 22rem;
+        height: 3rem;
+    }
 
-    .likeDiv{
-        margin-top: 26%;
-    
-    }   
-
-    .postMuro{
-    width: 85%;
-    /* background:#d9d9d9; */
-    border-radius: 0.5rem;
-    height: 240px;
-    margin: 8% 0%;
-    justify-content: center;
+    /* --------------estilo Muro.js------------*/
+    .logoMuro> img {
+        height: 130px;
+        width: 130px;
+        margin: 0%;
+    }
+    .titleMuro {
+        font-size: 3rem;
+        margin: 0%;
+        display: flex;
+        align-items: center;
+        margin-right: 3%;
+    }
+    .writeMuro{
+        width: 100%;
+    }
+    .write{
+        font-size: x-large;
+    }
+    .buttonPublish, .buttonUpdate, .buttonEdCancel {
+        font-size: 1.5rem;
+        border-radius: 0.5rem;
+        width: 8rem;
+        height: 3rem;
+        margin-left: 87%;
+    }
+    .buttonUpdate, .buttonEdCancel {
+        display: none;
+    }
+    .customer {
+        font-size: 2.5rem;
+        padding: 0 5%;
+        letter-spacing: 1.5px;
+    }
+    .date {
+        font-size: 1.7rem;
+    }
+    .postUser{
+        font-size: 2rem;
+    }
+    .btnLike, .btnEdit , .btnDelete {
+        width: 63px;
+        height: 63px;
+    }
+    .btnLike > img, .btnEdit > img, .btnDelete > img{
+        width: 52px;
+        height: 52px;
+    }
+    .numLike{
+        font-size: 2rem;
     }
     .footerCont{
     display: flex;
@@ -391,21 +436,14 @@ body{
     .buttonHome, .buttonProfile, .buttonLogOut{
         width: 70px;
         height: 70px;
-        
     }
-
-    .buttonHome > img{
+    .buttonHome > img, .buttonLogOut> img{
         width: 45px;
         height: 45px;
-        
     }
     .buttonProfile> img{
         width: 50px;
         height: 50px;
-    }
-    .buttonLogOut> img{
-        width: 45px;
-        height: 45px;
     }
     .footerCont{
         height: fit-content;
