@@ -363,6 +363,7 @@ margin-bottom: 2%;
     }
     .RegTitle {
         font-size: 1.5rem;
+        margin-top: 5%;
     }
     .containerAll{
         display: flex;
@@ -373,9 +374,6 @@ margin-bottom: 2%;
     }
     .gmailDiv{
         width: 100%;
-    }
-    .RegTitle{
-        margin-top: 5%;
     }
     .buttonGmail {
         font-size: 1.5rem;

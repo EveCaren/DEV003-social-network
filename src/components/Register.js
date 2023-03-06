@@ -1,8 +1,10 @@
 import Toastify from 'toastify-js';
-import { registerEvent, updateInfo } from '../lib/fireFunction.js';
+import {
+  registerEvent, updateInfo, registerGoogle, GoogleAuthProvider 
+} from '../lib/fireFunction.js';
 
 export const register = (onNavigate) => {
-  console.log('que valor tiene onNavvigate', onNavigate);
+  //console.log('que valor tiene onNavvigate', onNavigate);
   // estructuración
   const HomeDivReg = document.createElement('div');
   const logoDiv = document.createElement('div');
@@ -155,6 +157,25 @@ export const register = (onNavigate) => {
           }
         });
     }
+  });
+  buttonGmail.addEventListener('click', () => {
+    registerGoogle().then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const user = result.user;
+      console.log(user);
+      // IdP data available using getAdditionalUserInfo(result)
+      onNavigate('/muro');
+    }).catch((error) => {
+      console.log(error);
+      // Handle Errors here.
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+      // // The email of the user's account used.
+      // const email = error.customData.email;
+      // // The AuthCredential type that was used.
+      // const credential = GoogleAuthProvider.credentialFromError(error);
+      // // ...
+    });
   });
 
   logoDiv.append(logo, title, welcome);

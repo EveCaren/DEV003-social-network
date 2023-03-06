@@ -48,26 +48,24 @@ describe('test de home', () => {
     expect(Toastify).toHaveBeenCalled();
   });
 
-  it('Debería mostrar éxito', () => {
+  it('Debería mostrar éxito', async () => {
     const url = 'http://localhost:5173/muro';
     Object.defineProperty(window, 'location', {
       value: new URL(url),
     });
+    // buttonLogin.click();
+    // await time();
+    // expect(window.location.href).toEqual(url);
+    //   });
+    // });
+    login.mockImplementationOnce((email) => Promise.resolve({
+      user: { userCredential: 9876, email },
+    }));
+
     buttonLogin.click();
-    time();
+    await time();
     expect(window.location.href).toEqual(url);
   });
 });
-//     login.mockImplementationOnce((email) => Promise.resolve({
-//       user: { userCredential: 9876, email },
-//     }));
-
-//     buttonLogin.click();
-//     await time();
-//     expect(window.location.href).toEqual('http://localhost:5173/muro');
-//   });
-// });
-
-// // await time();
-// //     expect(Toastify).toHaveBeenCalled()
-// it("method A should work correctly", () => {
+// time();
+// expect(Toastify).toHaveBeenCalled();

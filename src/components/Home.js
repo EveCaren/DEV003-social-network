@@ -45,7 +45,7 @@ export const home = (onNavigate) => {
   const inputPass = document.createElement('input');
   inputPass.setAttribute('type', 'password');
   inputPass.setAttribute('class', 'inputs');
-  inputPass.placeholder = 'xxxxxxxx';
+  inputPass.placeholder = ' xxxxxxxx';
   // Botones
   const buttonLogin = document.createElement('button');
   buttonLogin.setAttribute('class', 'buttonLogin');

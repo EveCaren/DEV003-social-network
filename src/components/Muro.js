@@ -1,4 +1,5 @@
-import { async } from 'regenerator-runtime';
+/* eslint-disable no-alert */
+// import { async } from 'regenerator-runtime'; quitar?
 import {
   addANewPost,
   printPost,
@@ -17,10 +18,10 @@ let userMuro = '';
 let userIdMuro = '';
 
 stateLogin((user) => {
-  console.log('stateLogin', user);
+  // console.log('stateLogin', user);
   userMuro = user.displayName;
   userIdMuro = user.uid;
-  console.log(userIdMuro);
+  // console.log(userIdMuro);
 });
 
 export const muro = (onNavigate) => {
@@ -95,55 +96,6 @@ export const muro = (onNavigate) => {
       alert('No has escrito nada, revisa por favor 😿');
     }
   });
-
-  // enlistar posts
-  printPost((querySnapshot) => {
-    let contentPost = '';
-    console.log(querySnapshot);
-    querySnapshot.forEach((doc) => {
-      const docData = doc.data();
-      const postDate = docData.today.toDate();
-      const formDate = postDate.toLocaleDateString('es-ES', {
-        day: '2-digit',
-        month: '2-digit',
-        year: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-      console.log(docData);
-      console.log('currentUserInfo', currentUserInfo());
-
-      const loggedUserId = currentUserInfo().uid;
-      const isAuthor = docData.uidUser === loggedUserId;
-
-      contentPost += `<div class = 'cardPost' id = 'cardPost'> 
-        <div class = 'custAndDate'>
-          <p class = 'customer'>${docData.customer}</p>
-          <p class = 'date'>${formDate}</p>
-        </div>
-        <p class = 'postUser' id= ${doc.id}>${docData.postUser}</p>
-        <div class = 'likeDiv'>
-          <button class = 'btnLike' id=${doc.id}>
-            <img src='img/mascotas.png' alt='logolike'>
-          </button>
-          <p class = 'numLike'>${docData.like.length}</p>
-          ${isAuthor ? `<button class = 'btnEdit' id=${doc.id}>
-          <img src='img/lapiz.png' alt='logolike'>
-          </button>
-          <button class = 'btnDelete' id=${doc.id}>
-          <img src='img/eliminar.png' alt='logolike'>
-          </button>` : ''}
-        </div>
-      </div>`;
-    });
-    postMuro.innerHTML = contentPost;
-    eventLikes();
-    eventDelete();
-    eventEdit();
-    update();
-    cancel();
-  });
-
   // Función para añadir y quitar like
   function eventLikes() {
     const BtnLike = postMuro.querySelectorAll('.btnLike');
@@ -170,6 +122,7 @@ export const muro = (onNavigate) => {
     const BtnDelete = postMuro.querySelectorAll('.btnDelete');
     BtnDelete.forEach((btn) => {
       btn.addEventListener('click', () => {
+        // eslint-disable-next-line no-restricted-globals
         const question = confirm('¿Desea eliminar este post?');
         if (question === true) {
           deletePost(btn.id);
@@ -236,7 +189,53 @@ export const muro = (onNavigate) => {
       onNavigate('/');
     });
   });
+  // enlistar posts
+  printPost((querySnapshot) => {
+    let contentPost = '';
+    console.log(querySnapshot);
+    querySnapshot.forEach((doc) => {
+      const docData = doc.data();
+      const postDate = docData.today.toDate();
+      const formDate = postDate.toLocaleDateString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      console.log(docData);
+      console.log('currentUserInfo', currentUserInfo());
 
+      const loggedUserId = currentUserInfo().uid;
+      const isAuthor = docData.uidUser === loggedUserId;
+
+      contentPost += `<div class = 'cardPost' id = 'cardPost'> 
+        <div class = 'custAndDate'>
+          <p class = 'customer'>${docData.customer}</p>
+          <p class = 'date'>${formDate}</p>
+        </div>
+        <p class = 'postUser' id= ${doc.id}>${docData.postUser}</p>
+        <div class = 'likeDiv'>
+          <button class = 'btnLike' id=${doc.id}>
+            <img src='img/mascotas.png' alt='logolike'>
+          </button>
+          <p class = 'numLike'>${docData.like.length}</p>
+          ${isAuthor ? `<button class = 'btnEdit' id=${doc.id}>
+          <img src='img/lapiz.png' alt='logolike'>
+          </button>
+          <button class = 'btnDelete' id=${doc.id}>
+          <img src='img/eliminar.png' alt='logolike'>
+          </button>` : ''}
+        </div>
+      </div>`;
+    });
+    postMuro.innerHTML = contentPost;
+    eventLikes();
+    eventDelete();
+    eventEdit();
+    update();
+    cancel();
+  });
   logoDiv.append(logo, title);
   formMuro.append(write, buttonPublish, buttonUpdate, buttonEdCancel);
   publishDiv.appendChild(formMuro);
@@ -249,6 +248,5 @@ export const muro = (onNavigate) => {
   postMuro.appendChild(likeDiv);
   likeDiv.appendChild(post);
   HomeDivMuro.append(logoDiv, divContainer, footerCont);
-
   return HomeDivMuro;
 };
