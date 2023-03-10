@@ -1,10 +1,10 @@
 import Toastify from 'toastify-js';
 import {
-  registerEvent, updateInfo, registerGoogle, GoogleAuthProvider 
+  registerEvent, updateInfo, registerGoogle,
 } from '../lib/fireFunction.js';
 
 export const register = (onNavigate) => {
-  //console.log('que valor tiene onNavvigate', onNavigate);
+  // console.log('que valor tiene onNavvigate', onNavigate);
   // estructuración
   const HomeDivReg = document.createElement('div');
   const logoDiv = document.createElement('div');
@@ -36,7 +36,7 @@ export const register = (onNavigate) => {
   form.setAttribute('class', 'form');
   form.setAttribute('id', 'form');
   btnDiv.setAttribute('class', 'btnDiv');
-  logo.setAttribute('src', '/img/logo.png');
+  logo.setAttribute('src', 'https://github.com/EveCaren/DEV003-social-network/blob/sn-eve/src/img/logo.png?raw=true');
   logo.setAttribute('alt', 'logoAlt');
   logo.setAttribute('class', 'logo');
   title.setAttribute('class', 'title');
